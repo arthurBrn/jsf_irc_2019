@@ -1,2 +1,4 @@
 docker run -d -p 8080:8080 node-docker-irc
+docker run -d -p 4200:4200 frontend-irc
 tput setaf 2; echo 'Backend server running at http://localhost:8080'
+tput setaf 2; echo 'Frontend server running at http://localhost:4200'

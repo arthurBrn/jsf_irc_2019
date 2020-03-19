@@ -1,4 +1,6 @@
 cd backend
 npm install
+cd ../irc
+npm install
 cd ..
 ./scripts/start_servers
