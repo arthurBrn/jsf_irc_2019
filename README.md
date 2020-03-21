@@ -24,7 +24,9 @@ Création d'un server IRC en NodeJs, ExpressJS avec un client angular
 ### Installation
 ```sh
 $ git clone git@gitlab.com:baronbrn/jsf_irc_2019.git
-$ cd jsf_irc_2019
+$ cd jsf_irc_2019/angClient
+$ npm install
+$ cd ..
 $ ./script_front/install_front.sh
 $ ./script_front/launch_server.sh
 ```
