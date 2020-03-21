@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SocketService } from './socket.service';
+import { AutofocusModule } from 'angular-autofocus-fix';
 
 @NgModule({
   declarations: [
@@ -11,9 +12,11 @@ import { SocketService } from './socket.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    AutofocusModule
   ],
-  providers: [SocketService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
