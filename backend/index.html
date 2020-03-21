@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="user_name"></h1>
+    <div>
+        <input type="text" name="message" id="message" placeholder="Type yur message here ..." tabindex="-1">
+        <button type="button" onclick="getMessageValue();" tabindex="-1">Send</button>
+    </div>
+    <div id="container">
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:8080');
+        var pseudo = prompt('Quel est ton nom ?');
+        document.getElementById('user_name').innerHTML = 'You are actual nickname is ' + pseudo;
+        socket.emit('new_member', pseudo);
+        displayNewMember('You join the chat');
+
+        document.getElementById('message').addEventListener('keypress', (event) => {
+            if(event.keyCode == 13) {
+                getMessageValue();
+            }
+        });
+
+        socket.on('new_member', (pseudo) => {
+            let greeting = pseudo + ' a rejoint le chat';
+            displayNewMember(greeting);
+        });
+
+        socket.on('content', (data) => {
+            let content = data.pseudo + ' : ' + data.content;
+            displayContent(content);
+        });
+
+        function getMessageValue() {
+            let value = document.getElementById('message').value;
+            let content = 'You : ' + value;
+            displayContent(content);
+            socket.emit('content', value);
+        }
+        function displayNewMember(greeting) {
+            displayContent(greeting);
+        }
+
+        function displayContent(content) {
+            var para = document.createElement('p');
+            var node = document.createTextNode(content);
+            para.appendChild(node);
+            var element = document.getElementById('container');
+            element.appendChild(para);
+            document.getElementById('message').value = '';
+            document.getElementById('message').focus();
+        }
+    </script>
+</body>
+</html>
