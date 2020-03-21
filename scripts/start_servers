@@ -1,7 +1,0 @@
-docker run -d -p 8080:8080 node-docker-irc
-docker run -d -p 4200:4200 frontend-irc
-tput setaf 2;
-echo 'Backend server is running at http://localhost:8080'
-echo 'Frontend server is running at http://localhost:4200'
-tput setaf 7;
-echo '(you should wait for 30s while ng is compiling)'
