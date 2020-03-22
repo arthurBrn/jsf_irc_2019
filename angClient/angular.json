@@ -24,7 +24,8 @@
             ],
             "styles": [
               "./node_modules/mdbootstrap/css/bootstrap.css",
-              "./node_modules/mdbootstrap/css/mdb.css"
+              "./node_modules/mdbootstrap/css/mdb.css",
+              "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
 
