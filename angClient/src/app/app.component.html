@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <input type="text" class="form-control" placeholder="Enter your name here" [(ngModel)]="user" (keydown.enter)="join()">
     <button (click)="join()" type="submit">Send</button>
     <button (click)="leave()">Leave</button>
@@ -9,4 +9,39 @@
 </div>
 <div *ngFor="let item of messages">
     <span><strong>{{ item.user }} : </strong> {{ item.message }}</span>
+</div> -->
+<div class="container" style="height:100vh">
+    <div class="row" style="height: 5%;"></div>
+    <div class="row mx-1">
+        <div class="col-lg-3 p-0">
+            <div class="md-form m-0">
+                <input type="text" id="username" class="form-control" autocomplete="off" placeholder="Username" [(ngModel)]="user" (keydown.enter)="join()">
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-3 p-0">
+            <div class="md-form m-0">
+                <input type="text" id="room" class="form-control" placeholder="room" disabled>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2 p-0">
+            <button class="btn btn-outline-primary btn-rounded waves-effect btn-lg btn-block m-0 px-3" (click)="join()" type="submit">Join</button>
+        </div>
+    </div>
+    <div class="col-lg-12 card mt-5 mx-0 grey lighten-2 overflow-auto p-0" style="height: 65%">
+        <div *ngFor="let item of messages">
+            <span><strong>{{ item.user }} : </strong> {{ item.message }}</span>
+        </div></div>
+    <div class="mx-1 row mt-5 p-0">
+        <div class="col-lg-9 p-0">
+            <div class="md-form m-0">
+                <input type="text" id="message" class="form-control" placeholder="Type your message here ..." autofocus="true" [(ngModel)]="message" (keydown.enter)="sendMessage()">
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-lg-2 p-0">
+            <button type="button" class="btn btn-outline-primary btn-rounded waves-effect py-2 px-0 btn-lg btn-block" (click)="sendMessage()">Send</button>
+        </div>
+    </div>
 </div>
