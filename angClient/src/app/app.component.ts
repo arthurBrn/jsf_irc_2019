@@ -20,7 +20,11 @@ export class AppComponent {
       .subscribe((data) => this.messages.push(data));
 
       this._chatService.userLeftRoom()
-      .subscribe((data) => this.messages.push(data));
+    .subscribe((data) => {
+        if (data.user) {
+            this.messages.push(data);
+        }
+    });
 
       this._chatService.receivedMessage()
       .subscribe((data) => this.messages.push(data));
