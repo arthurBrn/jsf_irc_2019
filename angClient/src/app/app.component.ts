@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit} from '@angular/core';
 import { ChatService } from './chat.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from "@angular/forms";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class AppComponent implements OnInit{
   
   @ViewChild("messageInput") messageInput: ElementRef;
+  joinState = true;
   user: String;
   message: String;
   messages: Array<{user: String, message: String}> = [];
@@ -23,7 +25,8 @@ export class AppComponent implements OnInit{
    'Room 3' ,
    'Room 4' 
   ];
-  selectedRoom: any;
+  connected_rooms = [];
+  selectedRoom: String = 'General';
   roomForm: FormGroup;
 
   constructor(private _chatService: ChatService, private toastrService: ToastrService, private fb: FormBuilder) {
@@ -48,11 +51,15 @@ export class AppComponent implements OnInit{
   }
   onChange(value) {
       this.selectedRoom = value;
+      this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
   }
 
   join() {
     if (this.user) {
         if (this.user.match(/^[a-zA-Z0-9_.-]*$/)) {
+            this.connected_rooms.push(this.selectedRoom);
+            console.log(this.connected_rooms);
+            this.joinState = false;
             this.messages.push({ user: 'You', message:'joined the room' });
             this.is_connected = true;
             this._chatService.joinRoom(this.user, this.selectedRoom);
@@ -66,13 +73,16 @@ export class AppComponent implements OnInit{
     }
   }
   leave() {
-    this._chatService.leaveRoom();
-    window.location.reload();
+    const index = this.connected_rooms.indexOf(this.selectedRoom);
+    this.connected_rooms.splice(index);
+    this.joinState = true;
+    this._chatService.leaveRoom(this.selectedRoom);
+    $('.displayMsg').empty();
   }
   sendMessage() {
       if (this.is_connected) {
         if (this.message) {
-          this._chatService.sendMessage(this.message);
+          this._chatService.sendMessage(this.message, this.selectedRoom);
           this.message = '';
         }
       } else {
