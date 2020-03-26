@@ -11,8 +11,8 @@ export class ChatService {
 
   private socket = io('http://localhost:8080');
 
-  joinRoom(user) {
-      this.socket.emit('join', user);
+  joinRoom(user, room) {
+      this.socket.emit('join', {user: user, room: room});
   }
   newUserJoined() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {
@@ -24,7 +24,7 @@ export class ChatService {
       return observable;
   }
   leaveRoom() {
-      this.socket.emit('leave');
+      this.socket.emit('disconnect');
   }
   userLeftRoom() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {
