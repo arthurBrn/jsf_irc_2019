@@ -1,5 +1,13 @@
-<div class="container" style="height:100vh">
 
+<div class="row">
+  <div class="col-md-3">
+    <app-sidebar>
+
+    </app-sidebar>
+  </div>
+  <div class="col-md-9">
+
+    <div class="container" style="height:100vh">
     <div class="row mx-1 mt-5">
       <!--
       Username
@@ -22,7 +30,6 @@
             <button [hidden]="!joinState"class="btn btn-outline-primary btn-rounded waves-effect btn-lg btn-block m-0 px-3" (click)="join()" type="submit">Join</button>
         </div>
     </div>
-
     <!--
     Chanel content
     -->
@@ -31,7 +38,6 @@
             <span class="displayMsg"><strong>{{ item.user }} : </strong> {{ item.message }}</span>
         </div>
     </div>
-
     <!--
     User input
     -->
@@ -47,5 +53,6 @@
             <button type="button" class="btn btn-outline-primary btn-rounded waves-effect py-2 px-0 btn-lg btn-block" (click)="sendMessage()">Send</button>
         </div>
     </div>
-
+</div>
+  </div>
 </div>
