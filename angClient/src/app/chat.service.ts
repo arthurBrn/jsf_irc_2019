@@ -23,8 +23,8 @@ export class ChatService {
       });
       return observable;
   }
-  leaveRoom() {
-      this.socket.emit('disconnect');
+  leaveRoom(room) {
+      this.socket.emit('disconnect', room);
   }
   userLeftRoom() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {
@@ -35,8 +35,8 @@ export class ChatService {
       });
       return observable;
   }
-  sendMessage(message) {
-      this.socket.emit('message', message);
+  sendMessage(message, room) {
+      this.socket.emit('message', { message, room});
   }
   receivedMessage() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {
