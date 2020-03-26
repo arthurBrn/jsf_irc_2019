@@ -7,10 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutofocusModule } from 'angular-autofocus-fix';
 import { ToastrModule } from 'ngx-toastr';
+import { UserInputComponent } from './user-input/user-input.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserInputComponent
   ],
   imports: [
     BrowserModule,
