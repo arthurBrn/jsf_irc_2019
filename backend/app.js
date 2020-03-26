@@ -9,20 +9,19 @@ app.get('/', (req, res) => {
 })
 
 io.sockets.on('connection', (socket) => {
-  socket.on('join', (user) => {
-    socket.user = user;
-    socket.broadcast.emit('new-user', { user: user, message:'has joined the room'});
-  });
-  socket.on('leave', () => {
-    socket.broadcast.emit('leave-user', { user: socket.user, message:'has left the room'});
+  socket.on('join', (data) => {
+    socket.room = data.room;
+    socket.user = data.user;
+    socket.join(data.room);
+    socket.broadcast.to(data.room).emit('new-user', { user: data.user, message:'has joined the room'});
   });
   socket.on('disconnect', () => {
-    socket.broadcast.emit('leave-user', { user: socket.user, message:'has left the room'});
-  });
+    socket.broadcast.to(socket.room).emit('leave-user', { user: socket.user, message:'has left the room'});
+    socket.leave(socket.room);
+ });
   socket.on('message', (message) => {
-    io.emit('receivedMessage', { user: socket.user, message: message });
+    io.in(socket.room).emit('receivedMessage', { user: socket.user, message: message });
   });
 });
-
 
 server.listen(HOST);
