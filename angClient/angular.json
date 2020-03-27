@@ -25,7 +25,8 @@
             "styles": [
               "./node_modules/mdbootstrap/css/bootstrap.css",
               "./node_modules/mdbootstrap/css/mdb.css",
-              "./node_modules/ngx-toastr/toastr.css"
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",

@@ -1,8 +1,9 @@
 import { Component, ViewChild, ElementRef, OnInit} from '@angular/core';
 import { ChatService } from './chat.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from '@angular/forms';
 import * as $ from 'jquery';
+import {Channels} from './Model/Channels';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import * as $ from 'jquery';
   providers: [ChatService]
 })
 export class AppComponent implements OnInit{
-  
+
   @ViewChild("messageInput") messageInput: ElementRef;
   joinState = true;
   user: String;
@@ -21,13 +22,20 @@ export class AppComponent implements OnInit{
   rooms = [
    //'-- Choose a room --' ,
    'General',
-   'Room 2' ,
-   'Room 3' ,
-   'Room 4' 
+   'Channels 2' ,
+   'Channels 3' ,
+   'Channels 4' ,
   ];
   connected_rooms = [];
   selectedRoom: String = 'General';
   roomForm: FormGroup;
+
+
+  /**
+   * List of Rooms
+   * */
+  const channelArray: Array<Channels> = [];
+  channelList = this.getTheRooms();
 
   constructor(private _chatService: ChatService, private toastrService: ToastrService, private fb: FormBuilder) {
       this._chatService.newUserJoined()
@@ -67,7 +75,7 @@ export class AppComponent implements OnInit{
         } else {
             this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
         }
-        
+
     } else {
         this.toastrService.warning('You need a username to join');
     }
@@ -88,6 +96,19 @@ export class AppComponent implements OnInit{
       } else {
           this.toastrService.warning('You need a username and select a room to send messages');
       }
+  }
+
+  getTheRooms() {
+    const cha = new Channels();
+    for (let ro of this.rooms) {
+      console.log(ro);
+      cha.name = ro;
+      cha.stared = false;
+      this.channelArray.push(cha);
+    }
+    console.log('CHANNEL ARRAY');
+    console.log(this.channelArray);
+    return this.channelArray;
   }
 }
 

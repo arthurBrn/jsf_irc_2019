@@ -1,8 +1,8 @@
 import { User } from './User';
-import { Room } from './Room';
+import { Channels } from './Channels';
 
 export class Message {
   content: string;
   user: User;
-  room: Room;
+  room: Channels;
 }

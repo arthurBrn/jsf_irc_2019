@@ -9,12 +9,15 @@ import { Input } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   @Input() roomsList;
+  try = this.logRoomList();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  // Ici on va récupérer via INPUT je crois les rooms
-
+  logRoomList() {
+    console.log('ROOM LIST');
+    console.log(this.roomsList);
+  }
 }

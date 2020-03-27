@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
+import { Channels } from '../../Model/Channels';
 
 @Component({
   selector: 'app-user-chanels',
@@ -14,5 +15,4 @@ export class UserChanelsComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

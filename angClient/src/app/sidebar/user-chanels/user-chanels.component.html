@@ -1,5 +1,8 @@
-<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-center">
-  <span>Channels</span>
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-left mb-3">
+  <span style="width: 100%; color:white;">
+    Channels
+    <fa name="plus-circle" style="float:right; color:white;"></fa>
+  </span>
 </h6>
 <ul class="nav flex-column" style="width:100%;">
   <div *ngFor="let room of rooms">
@@ -10,3 +13,31 @@
     </li>
   </div>
 </ul>
+
+<h1>Stared channels</h1>
+<ul class="nav flex-column" style="width:100%;">
+  <div *ngFor="let cha of arrayOfChanel">
+    <li class="nav-item" style="width:100%;">
+      <a href="#" class="nav-link text-light" style="text-decoration: none;">
+        {{ cha }}
+      </a>
+      <fa name="fal fa-heart-circle" style="float:right; color:white;"></fa>
+    </li>
+  </div>
+</ul>
+
+
+
+<!--
+
+<h1>Channels</h1>
+<ul class="nav flex-column" style="width:100%;">
+  <div *ngFor="let cha of arrayOfChanel">
+    <li class="nav-item" style="width:100%;">
+      <a href="#" class="nav-link text-light" style="text-decoration: none;">
+        {{ cha. }}
+      </a>
+    </li>
+  </div>
+</ul>
+-->
