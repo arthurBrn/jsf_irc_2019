@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-user-chanels',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-chanels.component.css']
 })
 export class UserChanelsComponent implements OnInit {
+
+  @Input() rooms;
 
   constructor() { }
 
