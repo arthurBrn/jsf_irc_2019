@@ -9,6 +9,7 @@ import { Input } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   @Input() roomsList;
+  myvar = [];
   try = this.logRoomList();
 
   constructor() { }
@@ -18,6 +19,8 @@ export class SidebarComponent implements OnInit {
 
   logRoomList() {
     console.log('ROOM LIST');
+    this.myvar = this.roomsList;
+    console.log(this.myvar);
     console.log(this.roomsList);
   }
 }
