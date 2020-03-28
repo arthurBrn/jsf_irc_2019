@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit} from '@angular/core';
-import { ChatService } from './chat.service';
+import { ChatService } from './services/chat.service';
+import { ApiService } from './services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import * as $ from 'jquery';
@@ -29,7 +30,11 @@ export class AppComponent implements OnInit{
   selectedRoom: String = 'General';
   roomForm: FormGroup;
 
-  constructor(private _chatService: ChatService, private toastrService: ToastrService, private fb: FormBuilder) {
+  constructor(
+      private _chatService: ChatService, 
+      private _apiService: ApiService,
+      private toastrService: ToastrService,
+      private fb: FormBuilder) {
       this._chatService.newUserJoined()
       .subscribe((data) => this.messages.push(data));
 
@@ -47,6 +52,15 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.roomForm = this.fb.group({
         roomControl: [this.rooms[0]]
+    });
+    const message = {
+        content: 'first test from angular',
+        channelId: '1',
+        userId: '1',
+        pseudo: 'Jean lpb'
+    }
+    this._apiService.sendMessage(message).subscribe(data => {
+        console.log(data);
     });
   }
   onChange(value) {
