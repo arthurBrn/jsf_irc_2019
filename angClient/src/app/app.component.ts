@@ -34,7 +34,7 @@ export class AppComponent implements OnInit{
   /**
    * List of Rooms
    * */
-  const channelArray: Array<Channels> = [];
+  channelArray: Array<Channels> = [];
   channelList = this.getTheRooms();
 
   constructor(private _chatService: ChatService, private toastrService: ToastrService, private fb: FormBuilder) {
