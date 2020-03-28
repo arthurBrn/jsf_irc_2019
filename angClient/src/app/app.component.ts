@@ -31,9 +31,7 @@ export class AppComponent implements OnInit{
   roomForm: FormGroup;
 
 
-  /**
-   * List of Rooms
-   * */
+  /** List of Rooms */
   channelArray: Array<Channels> = [];
   channelList = this.getTheRooms();
 
@@ -99,14 +97,16 @@ export class AppComponent implements OnInit{
   }
 
   getTheRooms() {
-    const cha = new Channels();
+    const list = [];
     for (let ro of this.rooms) {
-      console.log(ro);
+      const cha = new Channels();
+      console.log('room : ' + ro);
       cha.name = ro;
       cha.stared = false;
       this.channelArray.push(cha);
+      console.log('array at turn i : ' + cha.name + ' length : ' + this.channelArray.length);
     }
-    console.log('CHANNEL ARRAY');
+    console.log('FINAL CHANNEL ARRAY');
     console.log(this.channelArray);
     return this.channelArray;
   }
