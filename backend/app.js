@@ -3,10 +3,14 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io').listen(server)
 const HOST = 8080;
-
-app.get('/', (req, res) => {
-  res.send('Socket server on !');
-})
+var msgController = require('./routes/messagesController');
+var loginController = require('./routes/loginController');
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use('/messages', msgController);
+app.use('/connect', loginController)
 
 io.sockets.on('connection', (socket) => {
   socket.on('join', (data) => {
@@ -26,4 +30,8 @@ io.sockets.on('connection', (socket) => {
   });
 });
 
-server.listen(HOST);
+server.listen(HOST, function() {
+   const all_routes = require('express-list-endpoints');
+    console.log(all_routes(app));
+});
+
