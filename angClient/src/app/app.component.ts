@@ -65,13 +65,20 @@ export class AppComponent implements OnInit{
         this.selectedRoom = parsedDatas[0].name;
     });
 
-    this.loginEmail = 'maxime@mail.com';
-    this.loginPassword = 'test';
-    this.login();
+    // this.loginEmail = 'maxime@mail.com';
+    // this.loginPassword = 'test';
+    // this.login();
   }
   onChange(value) {
       this.selectedRoom = value;
       this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
+      this._apiService.getMessages(value).subscribe((datas) => {
+        //   $('.displayMsg').empty();
+        this.messages = [];
+        for (const line of datas as any) {
+            this.messages.push({ user: line.pseudo, message: line.content })
+        }
+      })
   }
 
   join() {
@@ -96,7 +103,6 @@ export class AppComponent implements OnInit{
     this.connected_rooms.splice(index);
     this.joinState = true;
     this._chatService.leaveRoom(this.selectedRoom);
-    $('.displayMsg').empty();
   }
   sendMessage() {
       if (this.is_connected) {
@@ -106,8 +112,10 @@ export class AppComponent implements OnInit{
             'content': this.message,
             'channelId': this.selectedRoom,
             'userId': this.userId,
-            'pseudo': this.user
+            'pseudo': this.user,
+            'date': new Date().toISOString()
           }
+          console.log(persistDatas);
           this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
           this.message = '';
         }

@@ -12,7 +12,6 @@ router.post('/login', (req, res) => {
     } else {
       if (rows.length > 0) {
         bcrypt.compare(req.body.password, rows[0].password, (err, result) => {
-          console.log(rows)
           if (result) {
             res.json({
               code: 200,

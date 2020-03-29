@@ -54,6 +54,7 @@ export class ApiService {
         .set('channelId', message.channelId)
         .set('userId', message.userId)
         .set('pseudo', message.pseudo)
+        .set('date', message.date)
     return this.httpClient.post(this.baseUrl + 'messages/send',
     body.toString(),
     {
