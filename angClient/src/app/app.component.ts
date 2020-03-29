@@ -22,9 +22,8 @@ export class AppComponent implements OnInit{
   rooms = [
    //'-- Choose a room --' ,
    'General',
-   'Room 2' ,
-   'Room 3' ,
-   'Room 4' 
+   'Test',
+   'Hello'
   ];
   connected_rooms = [];
   selectedRoom: String = 'General';
@@ -43,7 +42,9 @@ export class AppComponent implements OnInit{
       private toastrService: ToastrService,
       private fb: FormBuilder) {
       this._chatService.newUserJoined()
-      .subscribe((data) => this.messages.push(data));
+      .subscribe((data) => {
+          this.messages.push(data);
+          });
 
       this._chatService.userLeftRoom()
       .subscribe((data) => {
@@ -57,12 +58,15 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
+    // this._apiService.getChannels().subscribe((data) => {
+    //     let parsedDatas = data as any; 
+    //     for (const line of parsedDatas) {
+    //        this.rooms.push(line.name);
+    //     }
+    // })
     this.roomForm = this.fb.group({
         roomControl: [this.rooms[0]]
     });
-    this._apiService.insertChannel('welcome').subscribe((data) => {
-        console.log(data);
-    })
   }
   onChange(value) {
       this.selectedRoom = value;
@@ -73,7 +77,6 @@ export class AppComponent implements OnInit{
     if (this.user) {
         if (this.user.match(/^[a-zA-Z0-9_.-]*$/)) {
             this.connected_rooms.push(this.selectedRoom);
-            console.log(this.connected_rooms);
             this.joinState = false;
             this.messages.push({ user: 'You', message:'joined the room' });
             this.is_connected = true;
@@ -107,7 +110,8 @@ export class AppComponent implements OnInit{
 
   login() {
     if (this.loginEmail && this.loginPassword) {
-        this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
+        // this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
+        this._apiService.login('maxime@mail.com', 'test').subscribe((data ) => {
             var parsedDatas = data as any;
             if(parsedDatas.code == 200) {
                 this.isAuth = true;

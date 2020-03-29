@@ -43,10 +43,8 @@ router.post('/register', (req, res) => {
       password: hash,
       createdAt: req.body.createdAt
     }
-    console.log(user);
     Connection.register(user, (error, rows) => {
       if (error) {
-        console.log(error);
         res.send({
           code: 400,
           failed: 'error ocurred'

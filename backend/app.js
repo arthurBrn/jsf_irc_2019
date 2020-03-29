@@ -22,6 +22,7 @@ app.use('/channels', channelController)
 io.sockets.on('connection', socket => {
   socket.on('join', data => {
     socket.user = data.user
+    socket.room = data.room
     socket.join(data.room)
     socket.broadcast
       .to(data.room)

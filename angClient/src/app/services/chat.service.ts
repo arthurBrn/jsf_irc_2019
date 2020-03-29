@@ -24,13 +24,13 @@ export class ChatService {
       return observable;
   }
   leaveRoom(room) {
-      this.socket.emit('disconnect', room);
+      this.socket.emit('leave', room);
   }
   userLeftRoom() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {
-          this.socket.on('leave-user', (data) => {
-              observer.next(data);
-          });
+            this.socket.on('leave-user', (data) => {
+                observer.next(data);
+            });
           return () => { this.socket.disconnect(); }
       });
       return observable;
