@@ -108,8 +108,7 @@ export class AppComponent implements OnInit{
 
   login() {
     if (this.loginEmail && this.loginPassword) {
-        // this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
-        this._apiService.login('maxime@mail.com', 'test').subscribe((data ) => {
+        this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
             var parsedDatas = data as any;
             if(parsedDatas.code == 200) {
                 this.isAuth = true;
