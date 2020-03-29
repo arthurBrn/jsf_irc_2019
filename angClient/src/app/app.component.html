@@ -10,7 +10,7 @@
         <div class="col-lg-2 p-0">
             <form [formGroup]="roomForm">
                 <select formControlName="roomControl" class="browser-default custom-select" (change)="onChange($event.target.value)">
-                    <option [value]="room" *ngFor="let room of rooms">{{ room }}</option>
+                    <option [value]="room.id" *ngFor="let room of rooms">{{ room.name }}</option>
                 </select>
             </form>
         </div>

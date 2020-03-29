@@ -12,10 +12,12 @@ router.post('/login', (req, res) => {
     } else {
       if (rows.length > 0) {
         bcrypt.compare(req.body.password, rows[0].password, (err, result) => {
+          console.log(rows)
           if (result) {
             res.json({
               code: 200,
-              success: 'login sucessfull'
+              success: 'login sucessfull',
+              userId: rows[0].id
             })
           } else {
             res.json({
@@ -52,7 +54,8 @@ router.post('/register', (req, res) => {
       } else {
         res.send({
           code: 200,
-          success: 'user registered sucessfully'
+          success: 'user registered sucessfully',
+          userId: rows.insertId
         })
       }
     })

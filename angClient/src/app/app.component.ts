@@ -19,9 +19,7 @@ export class AppComponent implements OnInit{
   message: String;
   messages: Array<{user: String, message: String}> = [];
   is_connected: boolean = false;
-  rooms = [
-   //'-- Choose a room --' ,
-  ];
+  rooms = [];
   connected_rooms = [];
   selectedRoom: String;
   roomForm: FormGroup;
@@ -32,6 +30,7 @@ export class AppComponent implements OnInit{
   regLastName: string;
   loginEmail: string;
   loginPassword: string;
+  userId: String;
 
   constructor(
       private _chatService: ChatService, 
@@ -58,13 +57,17 @@ export class AppComponent implements OnInit{
     this._apiService.getChannels().subscribe((data) => {
         let parsedDatas = data as any; 
         for (const line of parsedDatas) {
-           this.rooms.push(line.name);
+           this.rooms.push(line);
         }
         this.roomForm = this.fb.group({
             roomControl: [this.rooms[0]]
         });
         this.selectedRoom = parsedDatas[0].name;
     });
+
+    this.loginEmail = 'maxime@mail.com';
+    this.loginPassword = 'test';
+    this.login();
   }
   onChange(value) {
       this.selectedRoom = value;
@@ -99,6 +102,13 @@ export class AppComponent implements OnInit{
       if (this.is_connected) {
         if (this.message) {
           this._chatService.sendMessage(this.message, this.selectedRoom);
+          const persistDatas = {
+            'content': this.message,
+            'channelId': this.selectedRoom,
+            'userId': this.userId,
+            'pseudo': this.user
+          }
+          this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
           this.message = '';
         }
       } else {
@@ -111,6 +121,7 @@ export class AppComponent implements OnInit{
         this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
             var parsedDatas = data as any;
             if(parsedDatas.code == 200) {
+                this.userId = parsedDatas.userId;
                 this.isAuth = true;
             } else {
                 this.toastrService.warning(parsedDatas.success);
