@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   message: String;
   messages: Array<{user: String, message: String}> = [];
   is_connected: boolean = false;
+  userName = 'someUserName';
   rooms = [
    //'-- Choose a room --' ,
    'General',

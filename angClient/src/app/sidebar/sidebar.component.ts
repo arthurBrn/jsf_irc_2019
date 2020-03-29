@@ -9,6 +9,7 @@ import { Input } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   @Input() roomsList;
+  @Input() userName;
   myvar = [];
   try = this.logRoomList();
 

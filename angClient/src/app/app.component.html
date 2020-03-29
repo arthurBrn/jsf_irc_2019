@@ -3,6 +3,7 @@
   <div class="col-md-3">
     <app-sidebar
       [roomsList]="channelList"
+      [userName]="userName"
     >
     </app-sidebar>
   </div>
@@ -13,13 +14,13 @@
       <!--
       Username
        -->
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="md-form m-0">
                 <input autofocus type="text" id="username" class="form-control m-0" autocomplete="off" placeholder="Username" [(ngModel)]="user" (keydown.enter)="join()">
             </div>
-        </div>
+        </div> -->
         <!-- Rooms -->
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <form [formGroup]="roomForm" class="text-center">
                 <select formControlName="roomControl" class="browser-default custom-select" (change)="onChange($event.target.value)">
                     <option [value]="room" *ngFor="let room of rooms">{{ room }}</option>
@@ -29,7 +30,7 @@
         <div class="col-md-4">
             <button [hidden]="joinState" class="btn btn-outline-danger btn-rounded waves-effect btn-lg btn-block m-0 px-3" (click)="leave()" type="submit">Leave</button>
             <button [hidden]="!joinState"class="btn btn-outline-primary btn-rounded waves-effect btn-lg btn-block m-0 px-3" (click)="join()" type="submit">Join</button>
-        </div>
+        </div> -->
     </div>
     <!--
     Chanel content
