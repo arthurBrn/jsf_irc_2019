@@ -29,6 +29,13 @@ export class AppComponent implements OnInit{
   connected_rooms = [];
   selectedRoom: String = 'General';
   roomForm: FormGroup;
+  isAuth: boolean = false;
+  regEmail: string;
+  regPassword: string;
+  regFirstName: string;
+  regLastName: string;
+  loginEmail: string;
+  loginPassword: string;
 
   constructor(
       private _chatService: ChatService, 
@@ -52,15 +59,6 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.roomForm = this.fb.group({
         roomControl: [this.rooms[0]]
-    });
-    const message = {
-        content: 'first test from angular',
-        channelId: '1',
-        userId: '1',
-        pseudo: 'Jean lpb'
-    }
-    this._apiService.sendMessage(message).subscribe(data => {
-        console.log(data);
     });
   }
   onChange(value) {
@@ -102,6 +100,46 @@ export class AppComponent implements OnInit{
       } else {
           this.toastrService.warning('You need a username and select a room to send messages');
       }
+  }
+
+  login() {
+    if (this.loginEmail && this.loginPassword) {
+        this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
+            var parsedDatas = data as any;
+            if(parsedDatas.code == 200) {
+                this.isAuth = true;
+            } else {
+                this.toastrService.warning(parsedDatas.success);
+            }
+        });    
+    } else {
+        this.toastrService.warning('Email or password can\'t be empty');
+    }
+  }
+
+  register() {
+    if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
+        const today = new Date().toISOString();
+        const user = {
+            first_name: this.regFirstName,
+            last_name: this.regLastName,
+            email: this.regEmail,
+            password: this.regPassword,
+            createdAt: today
+        }
+        this._apiService.register(user).subscribe((data) => {
+        var parsedDatas = data as any;
+        if(parsedDatas.code == 200) {
+            this.loginEmail = this.regEmail;
+            this.loginPassword = this.regPassword;
+            this.login();
+        } else {
+            this.toastrService.warning(parsedDatas.success);
+        }
+        });
+    } else {
+        this.toastrService.warning('Please fill all fields to register');
+    }
   }
 }
 
