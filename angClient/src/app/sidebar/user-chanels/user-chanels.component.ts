@@ -15,4 +15,12 @@ export class UserChanelsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  addChannelEvent() {
+    this.renderAddChannelPopUp();
+  }
+
+  renderAddChannelPopUp() {
+    alert('Adding a channel');
+  }
 }
