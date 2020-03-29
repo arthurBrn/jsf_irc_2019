@@ -60,6 +60,9 @@ export class AppComponent implements OnInit{
     this.roomForm = this.fb.group({
         roomControl: [this.rooms[0]]
     });
+    this._apiService.insertChannel('welcome').subscribe((data) => {
+        console.log(data);
+    })
   }
   onChange(value) {
       this.selectedRoom = value;

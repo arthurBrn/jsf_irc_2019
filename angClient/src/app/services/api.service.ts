@@ -61,4 +61,19 @@ export class ApiService {
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
+
+  getChannels() {
+    return this.httpClient.get(this.baseUrl + 'channels');
+  }
+
+  insertChannel(name) {
+    const body = new HttpParams()
+        .set('name', name)
+    return this.httpClient.post(this.baseUrl + 'channels',
+    body.toString(),
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
 }
