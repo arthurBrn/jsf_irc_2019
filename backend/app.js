@@ -6,6 +6,7 @@ const cors = require('cors')
 const HOST = 8080
 var msgController = require('./routes/messagesController')
 var loginController = require('./routes/loginController')
+var channelController = require('./routes/channelsController')
 var bodyParser = require('body-parser')
 app.use(
   bodyParser.urlencoded({
@@ -16,6 +17,7 @@ app.use(
 app.use(cors())
 app.use('/messages', msgController)
 app.use('/connect', loginController)
+app.use('/channels', channelController)
 
 io.sockets.on('connection', socket => {
   socket.on('join', data => {

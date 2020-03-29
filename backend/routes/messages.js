@@ -1,10 +1,10 @@
 var db = require('../database/db')
 
 var Messages = {
-  getMessages: function(datas, callback) { 
+  getMessages: (datas, callback) => { 
     return db.query('SELECT * from messages where channelId = ?', [datas.channelId], callback);
   },
-  insertMessage: function(datas, callback) {
+  insertMessage: (datas, callback) => {
     var objMsg = {
       content: datas.content,
       channelId: datas.channelId,

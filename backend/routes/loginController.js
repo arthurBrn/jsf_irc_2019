@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 router.use(bodyParser.json())
 var Connection = require('./login')
 var bcrypt = require('bcrypt')
+
 router.post('/login', (req, res) => {
   Connection.login(req.body, (err, rows) => {
     if (err) {

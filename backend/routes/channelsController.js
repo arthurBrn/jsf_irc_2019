@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
-var Messages = require('./messages');
+var Channels = require('./channels');
 
-router.post('/get', (req, res) => {
-  Messages.getMessages(req.body, (err, rows) => {
+router.get('/', (req, res) => {
+  Channels.getChannels((err, rows) => {
     if (err) {
       res.status(400).json(err);
     } else {
@@ -14,9 +14,10 @@ router.post('/get', (req, res) => {
   });
 });
 
-router.post('/send', (req, res) => {
-  Messages.insertMessage(req.body, (err, rows) => {
+router.post('/', (req, res) => {
+  Channels.insertChannel(req.body.name, (err, rows) => {
     if (err) {
+      console.log(err);
       res.status(400).json(err);
     } else {
       res.json(rows);
