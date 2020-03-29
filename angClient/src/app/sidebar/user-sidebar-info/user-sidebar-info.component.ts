@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../../Model/User';
 
 @Component({
   selector: 'app-user-sidebar-info',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UserSidebarInfoComponent implements OnInit {
 
-  @Input() userName;
+  @Input() usr: User;
 
   constructor() { }
 

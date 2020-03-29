@@ -3,7 +3,8 @@ import { ChatService } from './chat.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as $ from 'jquery';
-import {Channels} from './Model/Channels';
+import { Channels } from './Model/Channels';
+import { User } from './Model/User';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,10 @@ export class AppComponent implements OnInit{
   message: String;
   messages: Array<{user: String, message: String}> = [];
   is_connected: boolean = false;
-  userName = 'someUserName';
+
+  usr = new User(1, 'baron', 'brn', 'baronarthur3@gmail.com', 'baron');
+
+
   rooms = [
    //'-- Choose a room --' ,
    'General',

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
+import { User } from '../Model/User';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +10,7 @@ import { Input } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   @Input() roomsList;
-  @Input() userName;
+  @Input() user: User;
   myvar = [];
   try = this.logRoomList();
 
