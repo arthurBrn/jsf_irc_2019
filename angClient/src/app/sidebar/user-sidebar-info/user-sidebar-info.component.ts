@@ -15,4 +15,7 @@ export class UserSidebarInfoComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeUserInfo() {
+    alert('Changing user info');
+  }
 }
