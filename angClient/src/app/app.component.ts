@@ -21,12 +21,9 @@ export class AppComponent implements OnInit{
   is_connected: boolean = false;
   rooms = [
    //'-- Choose a room --' ,
-   'General',
-   'Test',
-   'Hello'
   ];
   connected_rooms = [];
-  selectedRoom: String = 'General';
+  selectedRoom: String;
   roomForm: FormGroup;
   isAuth: boolean = false;
   regEmail: string;
@@ -58,14 +55,15 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    // this._apiService.getChannels().subscribe((data) => {
-    //     let parsedDatas = data as any; 
-    //     for (const line of parsedDatas) {
-    //        this.rooms.push(line.name);
-    //     }
-    // })
-    this.roomForm = this.fb.group({
-        roomControl: [this.rooms[0]]
+    this._apiService.getChannels().subscribe((data) => {
+        let parsedDatas = data as any; 
+        for (const line of parsedDatas) {
+           this.rooms.push(line.name);
+        }
+        this.roomForm = this.fb.group({
+            roomControl: [this.rooms[0]]
+        });
+        this.selectedRoom = parsedDatas[0].name;
     });
   }
   onChange(value) {
