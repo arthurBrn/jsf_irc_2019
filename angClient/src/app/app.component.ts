@@ -71,9 +71,9 @@ export class AppComponent implements OnInit{
         });
         this.selectedRoom = parsedDatas[0].name;
     });
-    this.loginEmail = 'maxime@mail.com';
-    this.loginPassword = 'test';
-    this.login();
+    // this.loginEmail = 'maxime@mail.com';
+    // this.loginPassword = 'test';
+    // this.login();
   }
   onChange(value) {
       this.selectedRoom = value;
