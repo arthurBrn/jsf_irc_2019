@@ -36,11 +36,24 @@ export class ChatService {
       return observable;
   }
   sendMessage(message, room) {
-      this.socket.emit('message', { message, room});
+      this.socket.emit('message', { message, room });
   }
   receivedMessage() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {
           this.socket.on('receivedMessage', (data) => {
+              observer.next(data);
+          });
+          return () => { this.socket.disconnect(); }
+      });
+      return observable;
+  }
+  rename(datas) {
+      this.socket.emit('rename', datas);
+  }
+
+  userRenamed() {
+      let observable = new Observable<{ user: String, message: String }>((observer) => {
+          this.socket.on('userRenamed', (data) => {
               observer.next(data);
           });
           return () => { this.socket.disconnect(); }

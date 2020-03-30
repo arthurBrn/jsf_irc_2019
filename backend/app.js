@@ -39,6 +39,11 @@ io.sockets.on('connection', socket => {
       .emit('leave-user', { user: socket.user, message: 'has left the room' })
     socket.leave(room)
   })
+  socket.on('rename', data => {
+    socket.broadcast
+      .to(data.room)
+      .emit('userRenamed', { user: data.oldName, message: 'renamed to ' + data.newName })
+  })
   socket.on('message', data => {
     io.in(data.room).emit('receivedMessage', {
       user: socket.user,
