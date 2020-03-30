@@ -25,4 +25,15 @@ router.post('/', (req, res) => {
   });
 });
 
+router.post('/rename', (req, res) => {
+  Channels.renameChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 module.exports = router;

@@ -6,6 +6,9 @@ var Channels = {
   },
   insertChannel: (name, callback) => {
     return db.query('insert into channels (name) values ( ? )', [name], callback);
+  },
+  renameChannel: (channel, callback) => {
+    return db.query('UPDATE channels SET  name = ? where id = ?', [channel.name, channel.id] , callback);
   }
 }
 
