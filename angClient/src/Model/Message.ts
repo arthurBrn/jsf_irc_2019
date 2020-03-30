@@ -6,6 +6,15 @@ export class Message {
   private _pseudo: string;
   private _date: string;
 
+  constructor(id: number, content: string, channelId: number, userId: number, pseudo: string, date: string) {
+    this._id = id;
+    this._content = content;
+    this._channelId = channelId;
+    this._userId = userId;
+    this._pseudo = pseudo;
+    this._date = date;
+  }
+
   get id(): number { return this._id; }
   set id(value: number) { this._id = value; }
   get content(): string { return this._content; }
