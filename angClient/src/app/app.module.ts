@@ -9,12 +9,14 @@ import { AutofocusModule } from 'angular-autofocus-fix';
 import { ToastrModule } from 'ngx-toastr';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
+import { UserInfoComponent } from './sidebar/user-info/user-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    UserChanelsComponent
+    UserChanelsComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
