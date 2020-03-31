@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { AutofocusModule } from 'angular-autofocus-fix';
 import { ToastrModule } from 'ngx-toastr';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    UserChanelsComponent
   ],
   imports: [
     BrowserModule,
