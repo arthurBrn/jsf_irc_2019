@@ -10,13 +10,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
 import { UserInfoComponent } from './sidebar/user-info/user-info.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     UserChanelsComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

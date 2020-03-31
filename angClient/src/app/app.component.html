@@ -6,6 +6,14 @@
 
 </app-sidebar>
 </div>
+
+<div *ngIf="isAuth">
+  <app-chat>
+
+  </app-chat>
+</div>
+
+<!--
 <div class="container" *ngIf="isAuth" style="height:100vh">
     <div class="row" style="height: 5%;"></div>
     <div class="row mx-1">
@@ -52,6 +60,8 @@
         </div>
     </div>
 </div>
+
+-->
 <!-- Login form -->
 <div class="container" *ngIf="!isAuth" style="height:100vh">
     <div class="row" style="height: 10%;"></div>
