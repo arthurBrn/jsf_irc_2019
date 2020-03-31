@@ -6,7 +6,7 @@
 </h6>
 <ul class="nav flex-column" style="width:100%;">
   <div *ngFor="let cha of rooms">
-    <div *ngIf="cha.stared === true">
+    <div *ngIf="cha.stared === 1">
       <li class="nav-item" style="width:100%;">
         <a href="#" class="nav-link text-light" style="text-decoration: none;">
           {{ cha.name }}
@@ -26,11 +26,13 @@
 </h6>
 <ul class="nav flex-column" style="width:100%;">
   <div *ngFor="let cha of rooms">
+    <div *ngIf="cha.stared === 0">
     <li class="nav-item" style="width:100%;">
       <a href="#" class="nav-link text-light" style="text-decoration: none;">
         {{ cha.name }}
       </a>
       <!-- <fa-icon name="fal fa-heart-circle" style="float:right; color:white;"></fa-icon> -->
     </li>
+    </div>
   </div>
 </ul>
