@@ -223,5 +223,10 @@ export class AppComponent implements OnInit{
         }
       }
   }
+
+  outputMessageValue(ev) {
+    console.log('got something : ' + ev);
+    // this.sendMessage(ev);
+  }
 }
 
