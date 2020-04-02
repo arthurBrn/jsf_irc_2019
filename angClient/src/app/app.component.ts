@@ -61,7 +61,13 @@ export class AppComponent implements OnInit{
     } 
 
   ngOnInit() {
+    
     this._apiService.getChannels().subscribe((data) => {
+        if (localStorage.getItem('login')) {
+            this.userId = localStorage.getItem('login');
+            console.log(this.userId);
+            this.isAuth = true;
+        }
         let parsedDatas = data as any; 
         for (const line of parsedDatas) {
            this.rooms.push(line);
@@ -130,6 +136,7 @@ export class AppComponent implements OnInit{
       if (this.is_connected) {
         if (this.message) {
           this._chatService.sendMessage(this.message, this.selectedRoom);
+          console.log(this.user);
           const persistDatas = {
             'content': this.message,
             'channelId': this.selectedRoom,
@@ -153,6 +160,7 @@ export class AppComponent implements OnInit{
             if(parsedDatas.code == 200) {
                 this.userId = parsedDatas.userId;
                 this.isAuth = true;
+                localStorage.setItem('login', parsedDatas.userId);
             } else {
                 this.toastrService.warning(parsedDatas.success);
             }
