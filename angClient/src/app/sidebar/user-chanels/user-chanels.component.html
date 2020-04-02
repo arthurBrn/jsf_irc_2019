@@ -11,6 +11,9 @@
         <a href="#" class="nav-link text-light" style="text-decoration: none;">
           {{ cha.name }}
         </a>
+        <a>
+          <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
+        </a>
       </li>
     </div>
   </div>
@@ -20,8 +23,8 @@
   <span style="width: 100%; color:white;">
     Channels
     <a href="#" (click)="addChannelEvent()">
-    <!-- <fa-icon name="plus-circle" style="float:right; color:white;"></fa-icon> -->
-      </a>
+      <i class="fa fa-plus-circle" style="float:right; color:white;"></i>
+    </a>
   </span>
 </h6>
 <ul class="nav flex-column" style="width:100%;">
@@ -31,7 +34,9 @@
       <a href="#" class="nav-link text-light" style="text-decoration: none;">
         # {{ cha.name }}
       </a>
-      <!-- <fa-icon name="fal fa-heart-circle" style="float:right; color:white;"></fa-icon> -->
+      <a>
+        <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
+      </a>
     </li>
     </div>
   </div>
