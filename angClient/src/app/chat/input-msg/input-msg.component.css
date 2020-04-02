@@ -1,0 +1,10 @@
+#messageInput:focus{
+    outline: none !important;
+    border-bottom:1px solid white;
+    box-shadow: none;
+}
+
+#messageInput::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+  }

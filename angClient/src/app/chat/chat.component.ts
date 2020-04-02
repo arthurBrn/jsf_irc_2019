@@ -10,6 +10,7 @@ export class ChatComponent implements OnInit {
   @Input() messages;
   @Input() message;
   @Input() function: any;
+  @Input() selectionnedChannel;
   @Output() emittedValue = new EventEmitter();
 
   constructor() { }
