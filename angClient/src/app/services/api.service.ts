@@ -67,9 +67,10 @@ export class ApiService {
     return this.httpClient.get(this.baseUrl + 'channels');
   }
 
-  insertChannel(name) {
+  insertChannel(channelObj) {
     const body = new HttpParams()
-        .set('name', name)
+        .set('name', channelObj.name)
+        .set('stared', channelObj.stared)
     return this.httpClient.post(this.baseUrl + 'channels',
     body.toString(),
     {

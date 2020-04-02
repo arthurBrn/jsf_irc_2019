@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, TemplateRef, EventEmitter, Output } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-user-chanels',
@@ -8,8 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserChanelsComponent implements OnInit {
 
   @Input() rooms;
+  @Output() newChanelEvent = new EventEmitter();
+  modalRef: BsModalRef;
+  newChanel: string;
 
-  constructor() { }
+  constructor(
+    private modalService: BsModalService,
+  ) { }
 
   ngOnInit() {
   }
@@ -21,5 +27,13 @@ export class UserChanelsComponent implements OnInit {
 
   renderAddChannelPopUp() {
     alert('Adding a channel');
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onAddChanel() {
+    this.newChanelEvent.emit(this.newChanel);
   }
 }
