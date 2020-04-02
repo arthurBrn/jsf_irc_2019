@@ -13,6 +13,15 @@
   </div>
 </div>
 
+<ng-template #templateRef>
+  <div class="modal-body">
+  </div>
+</ng-template>
+
+<button (click)="openModal(templateRef)">
+  open modal
+</button>
+
 <div class="container" *ngIf="isAuth" style="height:100vh">
     <div class="row" style="height: 5%;"></div>
     <div class="row mx-1">

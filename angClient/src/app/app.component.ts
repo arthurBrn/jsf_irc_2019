@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef, OnInit} from '@angular/core';
+import {Component, ViewChild, ElementRef, OnInit, TemplateRef} from '@angular/core';
 import { ChatService } from './services/chat.service';
 import { ApiService } from './services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import * as $ from 'jquery';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -35,10 +36,11 @@ export class AppComponent implements OnInit{
   userId: String;
   oldName: String;
   newName: String;
-
+  modalRef: BsModalRef;
   usernm = this.user;
 
   constructor(
+    private modalService: BsModalService,
     private _chatService: ChatService,
     private _apiService: ApiService,
     private toastrService: ToastrService,
@@ -227,6 +229,10 @@ export class AppComponent implements OnInit{
   outputMessageValue(ev) {
     console.log('got something : ' + ev);
     // this.sendMessage(ev);
+  }
+
+  public openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 }
 

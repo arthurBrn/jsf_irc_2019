@@ -11,6 +11,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
 import { UserInfoComponent } from './sidebar/user-info/user-info.component';
 import { ChatComponent } from './chat/chat.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ChatComponent } from './chat/chat.component';
     AutofocusModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
