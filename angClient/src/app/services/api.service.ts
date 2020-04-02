@@ -49,6 +49,7 @@ export class ApiService {
   }
 
   sendMessage(message) {
+    console.log('api : ' + message);
     const body = new HttpParams()
         .set('content', message.content)
         .set('channelId', message.channelId)

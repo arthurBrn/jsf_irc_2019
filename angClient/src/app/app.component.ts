@@ -65,7 +65,6 @@ export class AppComponent implements OnInit{
     this._apiService.getChannels().subscribe((data) => {
         if (localStorage.getItem('login')) {
             this.userId = localStorage.getItem('login');
-            console.log(this.userId);
             this.isAuth = true;
         }
         let parsedDatas = data as any; 
@@ -81,16 +80,31 @@ export class AppComponent implements OnInit{
     // this.loginPassword = 'test';
     // this.login();
   }
+
+  scrollDOwn() {
+      $('#divDisplay')[0].scrollTop = $('#divDisplay')[0].scrollHeight;
+  }
+
   onChange(value) {
-      this.selectedRoom = value;
-      this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
-      this._apiService.getMessages(value).subscribe((datas) => {
-        //   $('.displayMsg').empty();
-        this.messages = [];
-        for (const line of datas as any) {
-            this.messages.push({ user: line.pseudo, message: line.content })
-        }
-      })
+      let changeDatas = new Promise((resolve, reject) => {
+        this.selectedRoom = value;
+        this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
+        this._apiService.getMessages(value).subscribe((datas) => {
+            //   $('.displayMsg').empty();
+            this.messages = [];
+            for (const line of datas as any) {
+                this.messages.push({ user: line.pseudo, message: line.content })
+            }
+            resolve();
+        })
+      });
+      changeDatas.then(() => {
+        //   let element = $('#divDisplay');
+        // element.scrollIntoView();
+      }).catch((err) => {
+          console.log(err);
+      });
+      
   }
 
   join() {
@@ -113,11 +127,11 @@ export class AppComponent implements OnInit{
         } else {
             this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
         }
-        
     } else {
         this.toastrService.warning('You need a username to join');
     }
   }
+
   leave() {
     this.is_connected = (this.connected_rooms.length == 0) ?  false : true;
     const index = this.connected_rooms.indexOf(this.selectedRoom);
@@ -136,7 +150,6 @@ export class AppComponent implements OnInit{
       if (this.is_connected) {
         if (this.message) {
           this._chatService.sendMessage(this.message, this.selectedRoom);
-          console.log(this.user);
           const persistDatas = {
             'content': this.message,
             'channelId': this.selectedRoom,
@@ -145,7 +158,7 @@ export class AppComponent implements OnInit{
             'date': new Date().toISOString()
           }
           console.log(persistDatas);
-          this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
+          this._apiService.sendMessage(persistDatas).subscribe();
           this.message = '';
         }
       } else {
@@ -202,7 +215,8 @@ export class AppComponent implements OnInit{
   }
 
   rename() {
-      if (this.user) {
+      let renameUser = new Promise((resolve, reject) => {
+        if (this.user) {
         if (this.user.match(/^[a-z" "A-Z0-9_.-]*$/)) {
             this.is_renaming = false;
             this.is_connected = true;
@@ -213,6 +227,7 @@ export class AppComponent implements OnInit{
               }
               this._chatService.rename(datas);
               for (const room of this.connected_rooms) {
+                
                 const persistDatas = {
                     'content': 'renamed to ' + this.user,
                     'channelId': room,
@@ -220,14 +235,26 @@ export class AppComponent implements OnInit{
                     'pseudo': this.oldName,
                     'date': new Date().toISOString()
                 };
-               this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
+               this._apiService.sendMessage(persistDatas).subscribe();
               }
-              
               this.oldName = this.newName;
+              resolve(this.newName);
         } else {
-            this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
+            reject('Please provide valide user name with letter, numbers, comma, point or dash')
         }
       }
+      });
+      renameUser.then((result) => {
+          this._apiService.getMessages(this.selectedRoom).subscribe((datas) => {
+        //   $('.displayMsg').empty();
+            // this.messages = [];
+            // for (const line of datas as any) {
+            //     this.messages.push({ user: line.pseudo, message: line.content });
+            // }
+          });
+      }).catch((err) => {
+          this.toastrService.warning(err);
+      });
   }
 }
 

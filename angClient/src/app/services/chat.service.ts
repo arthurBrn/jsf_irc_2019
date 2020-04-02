@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
+import * as $ from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,9 @@ export class ChatService {
   }
   sendMessage(message, room) {
       this.socket.emit('message', { message, room });
+      let length = $('#divDisplay')[0].scrollHeight;
+      console.log(length);
+      $('#divDisplay')[0].scrollTop = length ;
   }
   receivedMessage() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {

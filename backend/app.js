@@ -40,15 +40,11 @@ io.sockets.on('connection', socket => {
     socket.leave(room)
   })
   socket.on('rename', data => {
-    socket.broadcast
-      .to(data.room)
-      .emit('userRenamed', { user: data.oldName, message: 'renamed to ' + data.newName })
+    socket.user = data.newName
+    io.in(data.room).emit('userRenamed', { user: data.oldName, message: 'renamed to ' + data.newName, newPseudo: data.newName })
   })
   socket.on('message', data => {
-    io.in(data.room).emit('receivedMessage', {
-      user: socket.user,
-      message: data.message
-    })
+    io.in(data.room).emit('receivedMessage', { user: socket.user, message: data.message })
   })
 })
 
