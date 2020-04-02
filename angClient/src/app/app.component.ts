@@ -12,7 +12,7 @@ import * as $ from 'jquery';
   providers: [ChatService]
 })
 export class AppComponent implements OnInit{
-  
+
   @ViewChild("messageInput") messageInput: ElementRef;
   joinState = true;
   pseudo: String;
@@ -36,8 +36,10 @@ export class AppComponent implements OnInit{
   oldName: String;
   newName: String;
 
+  usernm = this.user;
+
   constructor(
-    private _chatService: ChatService, 
+    private _chatService: ChatService,
     private _apiService: ApiService,
     private toastrService: ToastrService,
     private fb: FormBuilder) {
@@ -58,7 +60,7 @@ export class AppComponent implements OnInit{
 
         this._chatService.userRenamed()
         .subscribe((data) => this.messages.push(data));
-    } 
+    }
 
   ngOnInit() {
     
@@ -113,7 +115,7 @@ export class AppComponent implements OnInit{
         } else {
             this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
         }
-        
+
     } else {
         this.toastrService.warning('You need a username to join');
     }
@@ -164,7 +166,7 @@ export class AppComponent implements OnInit{
             } else {
                 this.toastrService.warning(parsedDatas.success);
             }
-        });    
+        });
     } else {
         this.toastrService.warning('Email or password can\'t be empty');
     }
@@ -222,12 +224,17 @@ export class AppComponent implements OnInit{
                 };
                this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
               }
-              
+
               this.oldName = this.newName;
         } else {
             this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
         }
       }
+  }
+
+  outputMessageValue(ev) {
+    console.log('got something : ' + ev);
+    // this.sendMessage(ev);
   }
 }
 

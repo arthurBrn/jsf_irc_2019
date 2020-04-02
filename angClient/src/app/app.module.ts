@@ -3,15 +3,22 @@ import { NgModule } from '@angular/core';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutofocusModule } from 'angular-autofocus-fix';
 import { ToastrModule } from 'ngx-toastr';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
+import { UserInfoComponent } from './sidebar/user-info/user-info.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent,
+    UserChanelsComponent,
+    UserInfoComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
