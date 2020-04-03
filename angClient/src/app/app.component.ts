@@ -223,5 +223,11 @@ export class AppComponent implements OnInit{
         }
       }
   }
+
+  onLoginEvent(ev) {
+    console.log(ev);
+    this.userId = ev;
+    this.isAuth = true;
+  }
 }
 
