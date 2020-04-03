@@ -282,5 +282,11 @@ export class AppComponent implements OnInit{
     // this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
     this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
   }
+
+  onLoginEvent(ev) {
+    console.log(ev);
+    this.userId = ev;
+    this.isAuth = true;
+  }
 }
 
