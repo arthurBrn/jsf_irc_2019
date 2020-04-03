@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit} from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter} from '@angular/core';
 import { ChatService } from './services/chat.service';
 import { ApiService } from './services/api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,37 @@ import * as $ from 'jquery';
   providers: [ChatService]
 })
 export class AppComponent implements OnInit{
+
+  selectionnedChannel;
+
+  onChangeChannel(selectionnedChannel) {
+    console.log('select:' + selectionnedChannel);
+    this.selectionnedChannel = selectionnedChannel;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @ViewChild("messageInput") messageInput: ElementRef;
   joinState = true;

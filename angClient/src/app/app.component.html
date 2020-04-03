@@ -3,13 +3,18 @@
     <div *ngIf="isAuth">
         <div class="row  overflow-hidden">
             <div class="col-md-2 p-0  overflow-hidden">
-            <app-sidebar [chanels]="rooms" [pseudo]="usernm" > </app-sidebar>
+            <app-sidebar 
+            [chanels]="rooms" 
+            [pseudo]="usernm" 
+            (selectionnedChannel)="onChangeChannel($event)"
+            > </app-sidebar>
             </div>
             <div class="col-md-10 px-0 overflow-hidden">
             <app-chat
                 [messages]="messages"
                 [message]="message"
-                (emittedValue)="outputMessageValue($event)"
+                [selectionnedChannel]="selectionnedChannel"
+                (emittedValue)="outputMessageValue($event)"    
             ></app-chat>
             </div>
         </div>

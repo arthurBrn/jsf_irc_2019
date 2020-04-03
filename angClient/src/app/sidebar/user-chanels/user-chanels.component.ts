@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ApiService } from '../../services/api.service'
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-user-chanels',
@@ -8,8 +10,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserChanelsComponent implements OnInit {
 
   @Input() rooms;
+  @Output() selectionnedChannel = new EventEmitter<String>();
+  
 
-  constructor() { }
+  constructor( private _apiService: ApiService) { }
 
   ngOnInit() {
   }
@@ -19,7 +23,13 @@ export class UserChanelsComponent implements OnInit {
     this.renderAddChannelPopUp();
   }
 
-  renderAddChannelPopUp() {
-    alert('Adding a channel');
+  changeChannel(channel) {
+    this.selectionnedChannel.emit(channel);
   }
+
+  renderAddChannelPopUp() {
+    this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
+  }
+
+  
 }

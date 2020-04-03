@@ -6,6 +6,7 @@
     </app-user-info>
     <app-user-chanels
       [rooms]="chanels"
+      (selectionnedChannel)="onChangeChannel($event)"
     >
     </app-user-chanels>
   </div>

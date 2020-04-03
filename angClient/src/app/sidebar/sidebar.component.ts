@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,10 +9,15 @@ export class SidebarComponent implements OnInit {
 
   @Input() chanels;
   @Input() pseudo;
+  @Output() selectionnedChannel = new EventEmitter<String>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onChangeChannel(channel) {
+    this.selectionnedChannel.emit(channel.id);
   }
 
 }
