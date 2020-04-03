@@ -15,7 +15,12 @@ export class DisplayZoneComponent implements OnInit {
   constructor(
     private _apiService: ApiService,
     private _chatService: ChatService,
-  ) { }
+  ) {
+    this._chatService.receivedMessage()
+    .subscribe((data) => {
+      this.messages.push(data);
+    });
+  }
 
   ngOnInit() {
 

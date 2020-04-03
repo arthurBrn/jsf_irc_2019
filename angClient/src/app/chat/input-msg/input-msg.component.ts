@@ -26,7 +26,6 @@ export class InputMsgComponent implements OnInit {
   }
 
   sendMessage() {
-      console.log(this.user);
       if (this.isAuth && this.channelId) {
         if (this.messageContent) {
           this._chatService.sendMessage(this.messageContent, this.channelId);
@@ -37,7 +36,7 @@ export class InputMsgComponent implements OnInit {
             'pseudo': this.user.pseudo,
             'date': new Date().toISOString()
           }
-          console.log(message);
+          console.log('message' + message);
           //this._apiService.sendMessage(message).subscribe();
           this.messageContent = '';
         }

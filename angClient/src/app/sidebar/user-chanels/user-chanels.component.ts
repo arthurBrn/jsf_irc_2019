@@ -39,9 +39,8 @@ export class UserChanelsComponent implements OnInit {
   changeChannel(channel) {
     this.selectionnedChannel.emit(channel);
     if (!this.connectedRooms.includes(channel.id)) {
-        console.log(this.connectedRooms)
       this.connectedRooms.push(channel.id);
-      //this._chatService.joinRoom(this.user.id, this.selectionnedChannel);
+      this._chatService.joinRoom(this.user.pseudo, channel.id);
     }
   }
 

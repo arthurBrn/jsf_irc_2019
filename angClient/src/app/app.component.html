@@ -2,7 +2,7 @@
 <div class="container-fluid" style="height:100vh">
     <div *ngIf="isAuth">
         <div class="row  overflow-hidden">
-            <div class="col-md-2 p-0  overflow-hidden">
+            <div class="col-lg-2 col-md-4 p-0  overflow-hidden">
             <app-sidebar 
                 [chanels]="rooms" 
                 [pseudo]="usernm" 
@@ -11,7 +11,7 @@
                 (newChannelEventFromSidebarToApp)="onNewChanel($event)"
             ></app-sidebar>
             </div>
-            <div class="col-md-10 px-0 overflow-hidden">
+            <div class="col-lg-10 col-md-8 px-0 overflow-hidden">
             <app-chat
                 [messages]="messages"
                 [message]="message"

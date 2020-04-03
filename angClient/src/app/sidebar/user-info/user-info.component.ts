@@ -17,7 +17,6 @@ export class UserInfoComponent implements OnInit {
     this._apiService.getUser(localStorage.getItem('login')).subscribe((data) => {
       this.usr = data[0].first_name;
       this.userPseudo.emit({'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
-      //pour le modifier le pseudo, meme ligne en modifiant le champ pseudo
     });
   }
   

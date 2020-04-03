@@ -26,29 +26,29 @@ io.sockets.on('connection', socket => {
     socket.join(data.room)
     socket.broadcast
       .to(data.room)
-      .emit('new-user', { user: data.user, message: 'has joined the room' })
+      .emit('new-user', { user: data.user, content: 'has joined the room' })
   })
   socket.on('disconnect', () => {
     socket.broadcast
       .to(socket.room)
-      .emit('leave-user', { user: socket.user, message: 'has left the room' })
+      .emit('leave-user', { user: socket.user, content: 'has left the room' })
   })
   socket.on('leave', room => {
     socket.broadcast
       .to(room)
-      .emit('leave-user', { user: socket.user, message: 'has left the room' })
+      .emit('leave-user', { user: socket.user, content: 'has left the room' })
     socket.leave(room)
   })
   socket.on('rename', data => {
     socket.broadcast
       .to(data.room)
-      .emit('userRenamed', { user: data.oldName, message: 'renamed to ' + data.newName })
+      .emit('userRenamed', { user: data.oldName, content: 'renamed to ' + data.newName })
   })
   socket.on('message', data => {
     console.log(data)
     io.in(data.room).emit('receivedMessage', {
       user: socket.user,
-      message: data.message
+      content: data.message
     })
   })
 })

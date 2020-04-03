@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
   userId: String;
 
   ngOnInit() {
+    localStorage.setItem('login', '15');
     this._apiService.getChannels().subscribe((data) => {
         if (localStorage.getItem('login')) {
             this.userId = localStorage.getItem('login');
