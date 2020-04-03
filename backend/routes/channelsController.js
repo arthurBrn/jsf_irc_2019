@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  Channels.insertChannel(req.body.name, (err, rows) => {
+  Channels.insertChannel(req.body, (err, rows) => {
     if (err) {
       console.log(err);
       res.status(400).json(err);
