@@ -4,16 +4,19 @@
         <div class="row  overflow-hidden">
             <div class="col-md-2 p-0  overflow-hidden">
             <app-sidebar 
-            [chanels]="rooms" 
-            [pseudo]="usernm" 
-            (selectionnedChannel)="onChangeChannel($event)"
-            > </app-sidebar>
+                [chanels]="rooms" 
+                [pseudo]="usernm" 
+                (selectionnedChannel)="onChangeChannel($event)"
+                (userPseudo)="onChangePseudo($event)"
+            ></app-sidebar>
             </div>
             <div class="col-md-10 px-0 overflow-hidden">
             <app-chat
                 [messages]="messages"
                 [message]="message"
+                [isAuth]="isAuth"
                 [selectionnedChannel]="selectionnedChannel"
+                [user]="userPseudo"
                 (emittedValue)="outputMessageValue($event)"    
             ></app-chat>
             </div>

@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
   @Input() chanels;
   @Input() pseudo;
   @Output() selectionnedChannel = new EventEmitter<String>();
+  @Output() userPseudo = new EventEmitter();
 
   constructor() { }
 
@@ -18,6 +19,10 @@ export class SidebarComponent implements OnInit {
 
   onChangeChannel(channel) {
     this.selectionnedChannel.emit(channel.id);
+  }
+
+  onChangePseudo(user) {
+    this.userPseudo.emit(user);
   }
 
 }

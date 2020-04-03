@@ -12,6 +12,8 @@ export class ChatComponent implements OnInit {
   @Input() function: any;
   @Input() selectionnedChannel;
   @Output() emittedValue = new EventEmitter();
+  @Input() isAuth;
+  @Input() user;
 
   constructor() { }
 

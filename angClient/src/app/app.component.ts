@@ -13,12 +13,88 @@ import * as $ from 'jquery';
 })
 export class AppComponent implements OnInit{
 
-  selectionnedChannel;
+  selectionnedChannel: String;
+  userPseudo;
+  isAuth: boolean = false;
+  regEmail: string;
+  regPassword: string;
+  regFirstName: string;
+  regLastName: string;
+  loginEmail: string;
+  loginPassword: string;
+  userId: String;
 
+  ngOnInit() {
+    this._apiService.getChannels().subscribe((data) => {
+        if (localStorage.getItem('login')) {
+            this.userId = localStorage.getItem('login');
+            console.log(this.userId);
+            this.isAuth = true;
+        }
+        let parsedDatas = data as any; 
+        for (const line of parsedDatas) {
+           this.rooms.push(line);
+        }
+        this.roomForm = this.fb.group({
+            roomControl: [this.rooms[0]]
+        });
+        this.selectedRoom = parsedDatas[0].name;
+    });
+    // this.loginEmail = 'maxime@mail.com';
+    // this.loginPassword = 'test';
+    // this.login()
+  }
+  
   onChangeChannel(selectionnedChannel) {
-    console.log('select:' + selectionnedChannel);
     this.selectionnedChannel = selectionnedChannel;
   }
+
+  onChangePseudo(userPseudo) {
+    this.userPseudo = userPseudo;
+  }
+
+  login() {
+    if (this.loginEmail && this.loginPassword) {
+        this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
+            var parsedDatas = data as any;
+            if(parsedDatas.code == 200) {
+                this.userId = parsedDatas.userId;
+                this.isAuth = true;
+                localStorage.setItem('login', parsedDatas.userId);
+            } else {
+                this.toastrService.warning(parsedDatas.success);
+            }
+        });
+    } else {
+        this.toastrService.warning('Email or password can\'t be empty');
+    }
+  }
+
+  register() {
+    if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
+        const today = new Date().toISOString();
+        const user = {
+            first_name: this.regFirstName,
+            last_name: this.regLastName,
+            email: this.regEmail,
+            password: this.regPassword,
+            createdAt: today
+        }
+        this._apiService.register(user).subscribe((data) => {
+        var parsedDatas = data as any;
+        if(parsedDatas.code == 200) {
+            this.loginEmail = this.regEmail;
+            this.loginPassword = this.regPassword;
+            this.login();
+        } else {
+            this.toastrService.warning(parsedDatas.success);
+        }
+        });
+    } else {
+        this.toastrService.warning('Please fill all fields to register');
+    }
+  }
+
 
 
 
@@ -56,14 +132,8 @@ export class AppComponent implements OnInit{
   connected_rooms = [];
   selectedRoom: String;
   roomForm: FormGroup;
-  isAuth: boolean = false;
-  regEmail: string;
-  regPassword: string;
-  regFirstName: string;
-  regLastName: string;
-  loginEmail: string;
-  loginPassword: string;
-  userId: String;
+  
+  
   oldName: String;
   newName: String;
 
@@ -93,27 +163,7 @@ export class AppComponent implements OnInit{
         .subscribe((data) => this.messages.push(data));
     }
 
-  ngOnInit() {
-    
-    this._apiService.getChannels().subscribe((data) => {
-        if (localStorage.getItem('login')) {
-            this.userId = localStorage.getItem('login');
-            console.log(this.userId);
-            this.isAuth = true;
-        }
-        let parsedDatas = data as any; 
-        for (const line of parsedDatas) {
-           this.rooms.push(line);
-        }
-        this.roomForm = this.fb.group({
-            roomControl: [this.rooms[0]]
-        });
-        this.selectedRoom = parsedDatas[0].name;
-    });
-    // this.loginEmail = 'maxime@mail.com';
-    // this.loginPassword = 'test';
-    // this.login();
-  }
+  
   onChange(value) {
       this.selectedRoom = value;
       this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
@@ -186,48 +236,7 @@ export class AppComponent implements OnInit{
       }
   }
 
-  login() {
-    if (this.loginEmail && this.loginPassword) {
-        this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
-            var parsedDatas = data as any;
-            if(parsedDatas.code == 200) {
-                this.userId = parsedDatas.userId;
-                this.isAuth = true;
-                localStorage.setItem('login', parsedDatas.userId);
-            } else {
-                this.toastrService.warning(parsedDatas.success);
-            }
-        });
-    } else {
-        this.toastrService.warning('Email or password can\'t be empty');
-    }
-  }
-
-  register() {
-    if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
-        const today = new Date().toISOString();
-        const user = {
-            first_name: this.regFirstName,
-            last_name: this.regLastName,
-            email: this.regEmail,
-            password: this.regPassword,
-            createdAt: today
-        }
-        this._apiService.register(user).subscribe((data) => {
-        var parsedDatas = data as any;
-        if(parsedDatas.code == 200) {
-            this.loginEmail = this.regEmail;
-            this.loginPassword = this.regPassword;
-            this.login();
-        } else {
-            this.toastrService.warning(parsedDatas.success);
-        }
-        });
-    } else {
-        this.toastrService.warning('Please fill all fields to register');
-    }
-  }
-
+  
   renaming() {
       this.oldName = this.user;
       this.is_renaming = true;

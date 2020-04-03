@@ -2,8 +2,10 @@
   <div class="sidebar-sticky">
     <app-user-info
       [usr]="pseudo"
+      (userPseudo)="onChangePseudo($event)"
     >
     </app-user-info>
+    <button (click)="test()">Test</button>
     <app-user-chanels
       [rooms]="chanels"
       (selectionnedChannel)="onChangeChannel($event)"

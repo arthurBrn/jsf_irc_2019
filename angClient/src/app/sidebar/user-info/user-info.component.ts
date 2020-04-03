@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ApiService } from '../../services/api.service'
 
 @Component({
   selector: 'app-user-info',
@@ -8,10 +9,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserInfoComponent implements OnInit {
 
   @Input() usr;
+  @Output() userPseudo = new EventEmitter();
 
-  constructor() { }
+  constructor(private _apiService: ApiService) { }
 
   ngOnInit() {
+    this._apiService.getUser(localStorage.getItem('login')).subscribe((data) => {
+      this.usr = data[0].first_name;
+      this.userPseudo.emit({'id': localStorage.getItem('login'), 'name': data[0].first_name });
+    });
   }
 
 

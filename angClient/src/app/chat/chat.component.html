@@ -22,7 +22,10 @@
 
 <div class="container-fluid overflow-hidden p-0 m-0" style="height: 100vh;">
     <app-display-zone
-        [selectionnedChannel]="selectionnedChannel"    
+        [selectionnedChannel]="selectionnedChannel"  
     ></app-display-zone>
-    <app-input-msg></app-input-msg>
+    <app-input-msg
+        [isAuth]="isAuth"
+        [user]="user"
+    ></app-input-msg>
 </div>

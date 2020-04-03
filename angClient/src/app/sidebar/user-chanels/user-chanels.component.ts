@@ -19,7 +19,6 @@ export class UserChanelsComponent implements OnInit {
   }
 
   addChannelEvent() {
-    console.log(this.rooms);
     this.renderAddChannelPopUp();
   }
 
