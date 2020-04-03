@@ -37,6 +37,7 @@ export class AppComponent implements OnInit{
   oldName: String;
   newName: String;
   usernm = this.user;
+  userobj;
 
   constructor(
     private _chatService: ChatService,
@@ -63,14 +64,15 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    
     this._apiService.getChannels().subscribe((data) => {
         if (localStorage.getItem('login')) {
             this.userId = localStorage.getItem('login');
-            console.log(this.userId);
+            // console.log(this.userId);
+            // console.log(this.userobj.id);
             this.isAuth = true;
+            console.log('User id : ' + this.userId);
         }
-        let parsedDatas = data as any; 
+        let parsedDatas = data as any;
         for (const line of parsedDatas) {
            this.rooms.push(line);
         }
@@ -149,7 +151,7 @@ export class AppComponent implements OnInit{
           console.log(persistDatas);
           this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
           this.message = '';
-        }                      
+        }
     } else {
       this.toastrService.warning('You need a username and select a room to send messages');
     }
@@ -242,5 +244,6 @@ export class AppComponent implements OnInit{
     // this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
     this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
   }
+
 }
 

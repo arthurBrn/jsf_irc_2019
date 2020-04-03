@@ -36,4 +36,15 @@ router.post('/rename', (req, res) => {
   });
 });
 
+router.post('/fav', (req, res) => {
+  Channels.staredChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+})
+
 module.exports = router;

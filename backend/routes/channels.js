@@ -9,6 +9,9 @@ var Channels = {
   },
   renameChannel: (channel, callback) => {
     return db.query('UPDATE channels SET  name = ? where id = ?', [channel.name, channel.id] , callback);
+  },
+  staredChannel: (channel, callback) => {
+    return db.query('UPDATE channels SET stared = ? WHERE id = ? ', [channel.stared, channel.id], callback);
   }
 }
 
