@@ -26,14 +26,14 @@ export class AppComponent implements OnInit{
   userId: String;
 
   ngOnInit() {
-    localStorage.setItem('login', '15');
+    // localStorage.setItem('login', '15');
     this._apiService.getChannels().subscribe((data) => {
         if (localStorage.getItem('login')) {
             this.userId = localStorage.getItem('login');
             console.log(this.userId);
             this.isAuth = true;
         }
-        let parsedDatas = data as any; 
+        let parsedDatas = data as any;
         for (const line of parsedDatas) {
            this.rooms.push(line);
         }
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit{
     // this.loginPassword = 'test';
     // this.login()
   }
-  
+
   onChangeChannel(selectionnedChannel) {
     this.selectionnedChannel = selectionnedChannel;
   }
@@ -134,8 +134,8 @@ export class AppComponent implements OnInit{
   connected_rooms = [];
   selectedRoom: String;
   roomForm: FormGroup;
-  
-  
+
+
   oldName: String;
   newName: String;
   usernm = this.user;
@@ -164,7 +164,7 @@ export class AppComponent implements OnInit{
       .subscribe((data) => this.messages.push(data));
   }
 
-  
+
   onChange(value) {
     this.selectedRoom = value;
     this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
@@ -231,7 +231,7 @@ export class AppComponent implements OnInit{
           console.log(persistDatas);
           this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
           this.message = '';
-        }                      
+        }
     } else {
       this.toastrService.warning('You need a username and select a room to send messages');
     }
