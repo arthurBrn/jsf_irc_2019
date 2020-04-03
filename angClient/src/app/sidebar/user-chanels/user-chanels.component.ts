@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { ApiService } from '../../services/api.service'
+import { ChatService } from '../../services/chat.service'
+import * as $ from 'jquery';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-user-chanels',
@@ -8,18 +12,47 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserChanelsComponent implements OnInit {
 
   @Input() rooms;
+  @Output() selectionnedChannel = new EventEmitter<String>();
+  @Output() newChanelEvent = new EventEmitter();
+  @Input() user;
+  modalRef: BsModalRef;
+  newChanel: string;
+  connectedRooms = [];
 
-  constructor() { }
+  constructor(
+    private modalService: BsModalService,
+    private _apiService: ApiService,
+    private _chatService: ChatService
+  ) { }
 
   ngOnInit() {
   }
 
+  onChangePseudo(user) {
+    this.user.emit(user);
+  }
+
   addChannelEvent() {
-    console.log(this.rooms);
     this.renderAddChannelPopUp();
   }
 
+  changeChannel(channel) {
+    this.selectionnedChannel.emit(channel);
+    if (!this.connectedRooms.includes(channel.id)) {
+      this.connectedRooms.push(channel.id);
+      this._chatService.joinRoom(this.user.pseudo, channel.id);
+    }
+  }
+
   renderAddChannelPopUp() {
-    alert('Adding a channel');
+    this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
+  }
+  
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onAddChanel() {
+    this.newChanelEvent.emit(this.newChanel);
   }
 }

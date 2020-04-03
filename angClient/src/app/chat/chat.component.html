@@ -1,0 +1,11 @@
+<div class="container-fluid overflow-hidden p-0 m-0" style="height: 100vh;">
+    <app-top-info></app-top-info>
+    <app-display-zone
+        [selectionnedChannel]="selectionnedChannel"  
+    ></app-display-zone>
+    <app-input-msg
+        [isAuth]="isAuth"
+        [user]="user"
+        [channelId]="selectionnedChannel" 
+    ></app-input-msg>
+</div>

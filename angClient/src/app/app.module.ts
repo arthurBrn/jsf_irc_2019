@@ -10,7 +10,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
 import { UserInfoComponent } from './sidebar/user-info/user-info.component';
-import { LoginComponent } from './login/login.component';
+import { ChatComponent } from './chat/chat.component';
+import { DisplayZoneComponent } from './chat/display-zone/display-zone.component';
+import { InputMsgComponent } from './chat/input-msg/input-msg.component';
+import { ModalComponent } from './sidebar/modal/modal.component';
+import { ModalModule } from 'ngx-bootstrap';
+import { TopInfoComponent } from './chat/top-info/top-info.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,11 @@ import { LoginComponent } from './login/login.component';
     SidebarComponent,
     UserChanelsComponent,
     UserInfoComponent,
-    LoginComponent
+    ChatComponent,
+    DisplayZoneComponent,
+    InputMsgComponent,
+    ModalComponent,
+    TopInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +37,8 @@ import { LoginComponent } from './login/login.component';
     AutofocusModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

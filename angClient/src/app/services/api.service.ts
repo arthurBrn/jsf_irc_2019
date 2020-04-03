@@ -12,65 +12,77 @@ export class ApiService {
 
   login(mail, password) {
     const body = new HttpParams()
-        .set('email', mail)
-        .set('password', password);
+      .set('email', mail)
+      .set('password', password);
     return this.httpClient.post(this.baseUrl + 'connect/login',
-    body.toString(),
-    {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
   }
 
   register(user) {
     const body = new HttpParams()
-        .set('first_name', user.first_name)
-        .set('last_name', user.last_name)
-        .set('email', user.email)
-        .set('password', user.password)
-        .set('createdAt', user.createdAt)
+      .set('first_name', user.first_name)
+      .set('last_name', user.last_name)
+      .set('email', user.email)
+      .set('password', user.password)
+      .set('createdAt', user.createdAt)
     return this.httpClient.post(this.baseUrl + 'connect/register',
-    body.toString(),
-    {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
   }
 
   getMessages(channelId) {
     const body = new HttpParams()
-        .set('channelId', channelId)
+      .set('channelId', channelId)
     return this.httpClient.post(this.baseUrl + 'messages/get',
-    body.toString(),
-    {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
   }
 
   sendMessage(message) {
     const body = new HttpParams()
-        .set('content', message.content)
-        .set('channelId', message.channelId)
-        .set('userId', message.userId)
-        .set('pseudo', message.pseudo)
-        .set('date', message.date)
+      .set('content', message.content)
+      .set('channelId', message.channelId)
+      .set('userId', message.userId)
+      .set('pseudo', message.pseudo)
+      .set('date', message.date)
     return this.httpClient.post(this.baseUrl + 'messages/send',
-    body.toString(),
-    {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
   }
 
   getChannels() {
     return this.httpClient.get(this.baseUrl + 'channels');
   }
 
-  insertChannel(name) {
+  insertChannel(datas) {
     const body = new HttpParams()
-        .set('name', name)
+        .set('name', datas.name)
+        .set('stared', datas.stared)
     return this.httpClient.post(this.baseUrl + 'channels',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
+  }
+
+  getUser(userId) {
+    const body = new HttpParams()
+        .set('userId', userId)
+    return this.httpClient.post(this.baseUrl + 'connect/user',
     body.toString(),
     {
       headers: new HttpHeaders()
