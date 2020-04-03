@@ -10,13 +10,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserChanelsComponent } from './sidebar/user-chanels/user-chanels.component';
 import { UserInfoComponent } from './sidebar/user-info/user-info.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     UserChanelsComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
