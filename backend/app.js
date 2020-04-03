@@ -45,6 +45,7 @@ io.sockets.on('connection', socket => {
       .emit('userRenamed', { user: data.oldName, message: 'renamed to ' + data.newName })
   })
   socket.on('message', data => {
+    console.log(data)
     io.in(data.room).emit('receivedMessage', {
       user: socket.user,
       message: data.message

@@ -11,6 +11,7 @@ export class SidebarComponent implements OnInit {
   @Input() pseudo;
   @Output() selectionnedChannel = new EventEmitter<String>();
   @Output() userPseudo = new EventEmitter();
+  user;
   @Output() newChannelEventFromSidebarToApp = new EventEmitter();
 
   constructor() { }
@@ -24,6 +25,7 @@ export class SidebarComponent implements OnInit {
 
   onChangePseudo(user) {
     this.userPseudo.emit(user);
+    this.user = user;
   }
   
   onNewChanel(ev) {
