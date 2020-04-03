@@ -22,7 +22,8 @@
 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted text-left mb-3 font-weight-bold">
   <span style="width: 100%; color:white;">
     Channels
-    <a href="#" (click)="addChannelEvent()">
+    <!-- <a href="#" (click)="addChannelEvent()"> -->
+    <a href="#" (click)="openModal(templateRef)">
       <i class="fa fa-plus-circle" style="float:right; color:white;"></i>
     </a>
   </span>
@@ -41,3 +42,31 @@
     </div>
   </div>
 </ul>
+
+
+<ng-template #templateRef >
+  <!-- <div class="modal-dialog">-->
+    <!-- Content -->
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header text-center">
+        <h5 class="modal-title">New channel</h5>
+      </div>
+      <!-- /header -->
+      <!-- body -->
+      <div class="modal-body">
+        <input type="text" id="newChanelName" class="form-control" placeholder="Chanel name..."
+               [(ngModel)]="newChanel" (keydown.enter)="onAddChanel()" />
+      </div>
+      <!-- / body -->
+      <!-- footer -->
+      <div class="modal-footer">
+        <button class="btn btn-elegant" (click)="onAddChanel()">
+          Validate
+        </button>
+      </div>
+      <!-- / footer -->
+    </div>
+    <!-- /content -->
+  <!--</div>-->
+</ng-template>

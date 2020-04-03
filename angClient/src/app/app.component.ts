@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter, TemplateRef} from '@angular/core';
 import { ChatService } from './services/chat.service';
 import { ApiService } from './services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import * as $ from 'jquery';
+import {Channels} from "../Model/Channels";
 
 @Component({
   selector: 'app-root',
@@ -136,7 +137,6 @@ export class AppComponent implements OnInit{
   
   oldName: String;
   newName: String;
-
   usernm = this.user;
 
   constructor(
@@ -144,61 +144,61 @@ export class AppComponent implements OnInit{
     private _apiService: ApiService,
     private toastrService: ToastrService,
     private fb: FormBuilder) {
-        this._chatService.newUserJoined()
-        .subscribe((data) => {
-            this.messages.push(data);
-            });
+    this._chatService.newUserJoined()
+      .subscribe((data) => {
+        this.messages.push(data);
+      });
 
-        this._chatService.userLeftRoom()
-        .subscribe((data) => {
+    this._chatService.userLeftRoom()
+      .subscribe((data) => {
         if (data.user) {
-            this.messages.push(data);
+          this.messages.push(data);
         }
-        });
+      });
 
-        this._chatService.receivedMessage()
-        .subscribe((data) => this.messages.push(data));
+    this._chatService.receivedMessage()
+      .subscribe((data) => this.messages.push(data));
 
-        this._chatService.userRenamed()
-        .subscribe((data) => this.messages.push(data));
-    }
+    this._chatService.userRenamed()
+      .subscribe((data) => this.messages.push(data));
+  }
 
   
   onChange(value) {
-      this.selectedRoom = value;
-      this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
-      this._apiService.getMessages(value).subscribe((datas) => {
-        //   $('.displayMsg').empty();
-        this.messages = [];
-        for (const line of datas as any) {
-            this.messages.push({ user: line.pseudo, message: line.content })
-        }
-      })
+    this.selectedRoom = value;
+    this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
+    this._apiService.getMessages(value).subscribe((datas) => {
+      //   $('.displayMsg').empty();
+      this.messages = [];
+      for (const line of datas as any) {
+        this.messages.push({ user: line.pseudo, message: line.content })
+      }
+    })
   }
 
   join() {
     if (this.user) {
-        if (this.user.match(/^[a-zA-Z0-9_.-]*$/)) {
-            this.pseudo = this.user;
-            this.connected_rooms.push(this.selectedRoom);
-            this.joinState = false;
-            this.messages.push({ user: 'You', message:'joined the room' });
-            this._apiService.sendMessage({
-                'content': 'joined the room',
-                'channelId': this.selectedRoom,
-                'userId': this.userId,
-                'pseudo': this.user,
-                'date': new Date().toISOString()
-            }).subscribe();
-            this.is_connected = true;
-            this._chatService.joinRoom(this.user, this.selectedRoom);
-            this.messageInput.nativeElement.focus()
-        } else {
-            this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
-        }
+      if (this.user.match(/^[a-zA-Z0-9_.-]*$/)) {
+        this.pseudo = this.user;
+        this.connected_rooms.push(this.selectedRoom);
+        this.joinState = false;
+        this.messages.push({ user: 'You', message:'joined the room' });
+        this._apiService.sendMessage({
+          'content': 'joined the room',
+          'channelId': this.selectedRoom,
+          'userId': this.userId,
+          'pseudo': this.user,
+          'date': new Date().toISOString()
+        }).subscribe();
+        this.is_connected = true;
+        this._chatService.joinRoom(this.user, this.selectedRoom);
+        this.messageInput.nativeElement.focus()
+      } else {
+        this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
+      }
 
     } else {
-        this.toastrService.warning('You need a username to join');
+      this.toastrService.warning('You need a username to join');
     }
   }
   leave() {
@@ -208,11 +208,11 @@ export class AppComponent implements OnInit{
     this.joinState = true;
     this._chatService.leaveRoom(this.selectedRoom);
     this._apiService.sendMessage({
-        'content': 'has left the room',
-        'channelId': this.selectedRoom,
-        'userId': this.userId,
-        'pseudo': this.user,
-        'date': new Date().toISOString()
+      'content': 'has left the room',
+      'channelId': this.selectedRoom,
+      'userId': this.userId,
+      'pseudo': this.user,
+      'date': new Date().toISOString()
     }).subscribe();
   }
   sendMessage() {
@@ -230,51 +230,56 @@ export class AppComponent implements OnInit{
           console.log(persistDatas);
           this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
           this.message = '';
-        }
-      } else {
-          this.toastrService.warning('You need a username and select a room to send messages');
-      }
+        }                      
+    } else {
+      this.toastrService.warning('You need a username and select a room to send messages');
+    }
   }
 
-  
   renaming() {
-      this.oldName = this.user;
-      this.is_renaming = true;
-      this.is_connected = false;
+    this.oldName = this.user;
+    this.is_renaming = true;
+    this.is_connected = false;
   }
 
   rename() {
-      if (this.user) {
-        if (this.user.match(/^[a-z" "A-Z0-9_.-]*$/)) {
-            this.is_renaming = false;
-            this.is_connected = true;
-              const datas = {
-                oldName: this.oldName,
-                newName: this.user,
-                room: this.selectedRoom
-              }
-              this._chatService.rename(datas);
-              for (const room of this.connected_rooms) {
-                const persistDatas = {
-                    'content': 'renamed to ' + this.user,
-                    'channelId': room,
-                    'userId': this.userId,
-                    'pseudo': this.oldName,
-                    'date': new Date().toISOString()
-                };
-               this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
-              }
-
-              this.oldName = this.newName;
-        } else {
-            this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
+    if (this.user) {
+      if (this.user.match(/^[a-z" "A-Z0-9_.-]*$/)) {
+        this.is_renaming = false;
+        this.is_connected = true;
+        const datas = {
+          oldName: this.oldName,
+          newName: this.user,
+          room: this.selectedRoom
         }
+        this._chatService.rename(datas);
+        for (const room of this.connected_rooms) {
+          const persistDatas = {
+            'content': 'renamed to ' + this.user,
+            'channelId': room,
+            'userId': this.userId,
+            'pseudo': this.oldName,
+            'date': new Date().toISOString()
+          };
+          this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
+        }
+
+        this.oldName = this.newName;
+      } else {
+        this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
       }
+    }
   }
 
   outputMessageValue(ev) {
     console.log('got something : ' + ev);
-    // this.sendMessage(ev);
+  }
+
+  onNewChanel(ev) {
+    console.log('New name : ' + ev + ' from appcomponent');
+    // this._apiService.insertChannel({name: ev, stared: '0'}).subscribe((data) => console.log(data));
+    // this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
+    this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
   }
 }
 

@@ -13,6 +13,8 @@ import { UserInfoComponent } from './sidebar/user-info/user-info.component';
 import { ChatComponent } from './chat/chat.component';
 import { DisplayZoneComponent } from './chat/display-zone/display-zone.component';
 import { InputMsgComponent } from './chat/input-msg/input-msg.component';
+import { ModalComponent } from './sidebar/modal/modal.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { InputMsgComponent } from './chat/input-msg/input-msg.component';
     UserInfoComponent,
     ChatComponent,
     DisplayZoneComponent,
-    InputMsgComponent
+    InputMsgComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { InputMsgComponent } from './chat/input-msg/input-msg.component';
     AutofocusModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

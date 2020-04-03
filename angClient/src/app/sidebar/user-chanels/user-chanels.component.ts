@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { ApiService } from '../../services/api.service'
 import * as $ from 'jquery';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-user-chanels',
@@ -11,9 +12,14 @@ export class UserChanelsComponent implements OnInit {
 
   @Input() rooms;
   @Output() selectionnedChannel = new EventEmitter<String>();
-  
+  @Output() newChanelEvent = new EventEmitter();
+  modalRef: BsModalRef;
+  newChanel: string;
 
-  constructor( private _apiService: ApiService) { }
+  constructor(
+    private modalService: BsModalService,
+    private _apiService: ApiService
+  ) { }
 
   ngOnInit() {
   }
@@ -29,6 +35,12 @@ export class UserChanelsComponent implements OnInit {
   renderAddChannelPopUp() {
     this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
   }
-
   
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onAddChanel() {
+    this.newChanelEvent.emit(this.newChanel);
+  }
 }
