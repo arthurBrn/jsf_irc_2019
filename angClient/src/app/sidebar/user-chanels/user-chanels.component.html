@@ -31,33 +31,42 @@
 <ul class="nav flex-column" style="width:100%;">
   <div *ngFor="let cha of rooms">
     <div *ngIf="cha.stared === 0">
-    <li class="nav-item" style="width:100%;">
-      <a href="#" class="nav-link text-light" style="text-decoration: none;">
-        # {{ cha.name }}
-      </a>
-      <a>
-        <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
-      </a>
-    </li>
+      <li class="nav-item" style="width:100%;">
+        <a href="#" class="nav-link text-light" style="text-decoration: none;">
+          # {{ cha.name }}
+        </a>
+        <a>
+          <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
+        </a>
+      </li>
     </div>
   </div>
 </ul>
 
 
 <ng-template #templateRef>
+  <div class="modal-dialog-centered">
+    <!-- Content -->
     <div class="modal-content">
-      <div class="modal-header">
+      <!-- header -->
+      <div class="modal-header text-center">
         <h5 class="modal-title">New channel</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
+      <!-- /header -->
+      <!-- body -->
       <div class="modal-body">
         <input type="text" id="newChanelName" class="form-control" placeholder="Chanel name..."
-          [(ngModel)]="newChanel" (keydown.enter)="onAddChanel()" />
+               [(ngModel)]="newChanel" (keydown.enter)="onAddChanel()" />
+      </div>
+      <!-- / body -->
+      <!-- footer -->
+      <div class="modal-footer">
         <button class="btn btn-elegant" (click)="onAddChanel()">
           Validate
         </button>
       </div>
+      <!-- / footer -->
     </div>
+    <!-- /content -->
+  </div>
 </ng-template>
