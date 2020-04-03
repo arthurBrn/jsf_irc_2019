@@ -9,7 +9,11 @@ var Channels = {
   },
   renameChannel: (channel, callback) => {
     return db.query('UPDATE channels SET  name = ? where id = ?', [channel.name, channel.id] , callback);
+  },
+  getJoined: (userId, callback) => {
+    return db.query('select * from channels c, joinedChannel jc where c.id = jc.channelId and jc.userId = ?' , [userId], callback);
   }
+
 }
 
 module.exports = Channels;

@@ -14,8 +14,29 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/', (req, res) => {
+  Channels.getChannels((err, rows) => {
+    if (err) {
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 router.post('/', (req, res) => {
   Channels.insertChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+router.post('/joined', (req, res) => {
+  Channels.getJoined(req.body.userId, (err, rows) => {
     if (err) {
       console.log(err);
       res.status(400).json(err);
