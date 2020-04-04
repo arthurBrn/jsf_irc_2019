@@ -3,6 +3,7 @@
     <app-user-info
       [usr]="pseudo"
       (userPseudo)="onChangePseudo($event)"
+      (userDisconnect)="onDisconnectEvent($event)"
     >
     </app-user-info>
     <app-user-chanels

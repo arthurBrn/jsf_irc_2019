@@ -10,6 +10,7 @@ export class UserInfoComponent implements OnInit {
 
   @Input() usr;
   @Output() userPseudo = new EventEmitter();
+  @Output() userDisconnect = new EventEmitter();
 
   constructor(private _apiService: ApiService) { }
 
@@ -19,9 +20,13 @@ export class UserInfoComponent implements OnInit {
       this.userPseudo.emit({'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
     });
   }
-  
+
   changeUserInfo() {
     alert('Changing user info');
   }
 
+  onUserDisconnect() {
+    localStorage.removeItem('login');
+    this.userDisconnect.emit(true);
+  }
 }

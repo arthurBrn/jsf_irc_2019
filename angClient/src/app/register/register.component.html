@@ -1,0 +1,34 @@
+<h1 class="p-3 mb-4 font-weight-bold">Register</h1>
+<div class="input-group mb-3">
+  <div class="col-lg-3 p-0">
+    <span class="input-group-text value login-span" id="basic-addon1" style="border-top-right-radius:0px; border-bottom-right-radius:0px;">First Name</span>
+  </div>
+  <div class="col-lg-9 p-0">
+    <input type="text" class="form-control" [(ngModel)]="regFirstName" placeholder="First Name" style="border-top-left-radius:0px; border-bottom-left-radius:0px;">
+  </div>
+</div>
+<div class="input-group mb-3">
+  <div class="col-lg-3 p-0">
+    <span class="input-group-text value login-span" id="basic-addon1" style="border-top-right-radius:0px; border-bottom-right-radius:0px;">Last Name</span>
+  </div>
+  <div class="col-lg-9 p-0">
+    <input type="text" class="form-control" [(ngModel)]="regLastName" placeholder="Last Name" style="border-top-left-radius:0px; border-bottom-left-radius:0px;">
+  </div>
+</div>
+<div class="input-group mb-3">
+  <div class="col-lg-3 p-0">
+    <span class="input-group-text value login-span" id="basic-addon1" style="border-top-right-radius:0px; border-bottom-right-radius:0px;">Email</span>
+  </div>
+  <div class="col-lg-9 p-0">
+    <input type="text" class="form-control" [(ngModel)]="regEmail" placeholder="Email" style="border-top-left-radius:0px; border-bottom-left-radius:0px;">
+  </div>
+</div>
+<div class="input-group mb-3">
+  <div class="col-lg-3 p-0">
+    <span class="input-group-text value" id="basic-addon1" style="border-top-right-radius:0px; border-bottom-right-radius:0px;">Password</span>
+  </div>
+  <div class="col-lg-9 p-0">
+    <input type="password" class="form-control" [(ngModel)]="regPassword" placeholder="Password" style="border-top-left-radius:0px; border-bottom-left-radius:0px;">
+  </div>
+</div>
+<button class="btn btn-default btn-block" (click)="register()">Register</button>

@@ -30,7 +30,7 @@ export class UserChanelsComponent implements OnInit {
       let promise = new Promise((resolve, reject) => {
       let size = 0;
       for (let id in datas) {
-        if(datas.hasOwnProperty(id)) size++; 
+        if(datas.hasOwnProperty(id)) size++;
       }
       resolve(size);
       });
