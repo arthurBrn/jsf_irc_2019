@@ -204,5 +204,9 @@ export class AppComponent implements OnInit{
     localStorage.setItem('login', event);
     this.isAuth =true;
   }
+
+  onGeneralDisconnectEvent(event) {
+    this.isAuth = false;
+  }
 }
 
