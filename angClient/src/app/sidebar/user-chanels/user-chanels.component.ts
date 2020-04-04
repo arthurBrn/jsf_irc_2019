@@ -13,11 +13,11 @@ export class UserChanelsComponent implements OnInit {
 
   rooms = [];
   @Output() selectionnedChannel = new EventEmitter<String>();
-  @Output() newChanelEvent = new EventEmitter();
   @Input() user;
   modalRef: BsModalRef;
   newChanel: string;
   connectedRooms = [];
+  isAddingChannel = false;
 
   constructor(
     private modalService: BsModalService,
@@ -36,7 +36,7 @@ export class UserChanelsComponent implements OnInit {
       });
       promise.then((size) => {
         for (let i = 0; i < size; i++) {
-          this.rooms.push({
+          this.connectedRooms.push({
             'id': datas[i].id,
             'name': datas[i].name,
            'stared': datas[i].stared
@@ -58,14 +58,10 @@ export class UserChanelsComponent implements OnInit {
 
   changeChannel(channel) {
     this.selectionnedChannel.emit(channel);
-    if (!this.connectedRooms.includes(channel.id)) {
-      this.connectedRooms.push(channel.id);
-      this._chatService.joinRoom(this.user.pseudo, channel.id);
-    }
   }
 
   renderAddChannelPopUp() {
-    this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
+    //this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
   }
   
   openModal(template: TemplateRef<any>) {
@@ -73,6 +69,16 @@ export class UserChanelsComponent implements OnInit {
   }
 
   onAddChanel() {
-    this.newChanelEvent.emit(this.newChanel);
+    this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
+      let datas = data as any;
+      this._chatService.joinRoom(this.user.pseudo, datas.insertId);
+      this._apiService.addJoinedChannel({ 'userId': this.user.id, 'channelId': datas.insertId, 'stared': 0 }).subscribe();
+      this.connectedRooms.push({ 'id': datas.insertId, 'name': this.newChanel, 'stared': 0 });
+    });
+    this.isAddingChannel = false;
+  }
+
+  searchChannel() {
+    this.isAddingChannel = true;
   }
 }
