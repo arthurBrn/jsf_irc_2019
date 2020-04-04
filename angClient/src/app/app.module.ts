@@ -17,6 +17,7 @@ import { ModalComponent } from './sidebar/modal/modal.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { TopInfoComponent } from './chat/top-info/top-info.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoginComponent } from './login/login.component';
     InputMsgComponent,
     ModalComponent,
     TopInfoComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

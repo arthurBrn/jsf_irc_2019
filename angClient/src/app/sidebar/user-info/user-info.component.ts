@@ -15,11 +15,12 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {
     this._apiService.getUser(localStorage.getItem('login')).subscribe((data) => {
+      console.log(localStorage.getItem('login'));
       this.usr = data[0].first_name;
       this.userPseudo.emit({'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
     });
   }
-  
+
   changeUserInfo() {
     alert('Changing user info');
   }
