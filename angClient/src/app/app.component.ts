@@ -21,109 +21,7 @@ export class AppComponent implements OnInit{
   regPassword: string;
   regFirstName: string;
   regLastName: string;
-  loginEmail: string;
-  loginPassword: string;
   userId: String;
-
-  ngOnInit() {
-    // localStorage.setItem('login', '2');
-    localStorage.removeItem('login');
-    this._apiService.getChannels().subscribe((data) => {
-        if (localStorage.getItem('login')) {
-            this.userId = localStorage.getItem('login');
-            console.log(this.userId);
-            this.isAuth = true;
-        }
-        let parsedDatas = data as any;
-        for (const line of parsedDatas) {
-           this.rooms.push(line);
-        }
-        this.roomForm = this.fb.group({
-            roomControl: [this.rooms[0]]
-        });
-        this.selectedRoom = parsedDatas[0].name;
-    });
-    // this.loginEmail = 'maxime@mail.com';
-    // this.loginPassword = 'test';
-    // this.login()
-  }
-
-  onChangeChannel(selectionnedChannel) {
-    this.selectionnedChannel = selectionnedChannel;
-  }
-
-  onChangePseudo(userPseudo) {
-    this.userPseudo = userPseudo;
-  }
-
-  /* login() {
-    if (this.loginEmail && this.loginPassword) {
-        this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
-            var parsedDatas = data as any;
-            if(parsedDatas.code == 200) {
-                this.userId = parsedDatas.userId;
-                this.isAuth = true;
-                localStorage.setItem('login', parsedDatas.userId);
-            } else {
-                this.toastrService.warning(parsedDatas.success);
-            }
-        });
-    } else {
-        this.toastrService.warning('Email or password can\'t be empty');
-    }
-  } */
-
-  /*
-  register() {
-    if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
-        const today = new Date().toISOString();
-        const user = {
-            first_name: this.regFirstName,
-            last_name: this.regLastName,
-            email: this.regEmail,
-            password: this.regPassword,
-            createdAt: today
-        }
-        this._apiService.register(user).subscribe((data) => {
-        var parsedDatas = data as any;
-        if(parsedDatas.code == 200) {
-            this.loginEmail = this.regEmail;
-            this.loginPassword = this.regPassword;
-            this.login();
-        } else {
-            this.toastrService.warning(parsedDatas.success);
-        }
-        });
-    } else {
-        this.toastrService.warning('Please fill all fields to register');
-    }
-  }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @ViewChild("messageInput") messageInput: ElementRef;
   joinState = true;
   pseudo: String;
@@ -136,8 +34,6 @@ export class AppComponent implements OnInit{
   connected_rooms = [];
   selectedRoom: String;
   roomForm: FormGroup;
-
-
   oldName: String;
   newName: String;
   usernm = this.user;
@@ -166,6 +62,60 @@ export class AppComponent implements OnInit{
       .subscribe((data) => this.messages.push(data));
   }
 
+  ngOnInit() {
+    // localStorage.setItem('login', '2');
+    localStorage.removeItem('login');
+    this._apiService.getChannels().subscribe((data) => {
+        if (localStorage.getItem('login')) {
+            this.userId = localStorage.getItem('login');
+            console.log(this.userId);
+            this.isAuth = true;
+        }
+        let parsedDatas = data as any;
+        for (const line of parsedDatas) {
+           this.rooms.push(line);
+        }
+        this.roomForm = this.fb.group({
+            roomControl: [this.rooms[0]]
+        });
+        this.selectedRoom = parsedDatas[0].name;
+    });
+  }
+
+  onChangeChannel(selectionnedChannel) {
+    this.selectionnedChannel = selectionnedChannel;
+  }
+
+  onChangePseudo(userPseudo) {
+    this.userPseudo = userPseudo;
+  }
+
+
+  /*
+  register() {
+    if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
+        const today = new Date().toISOString();
+        const user = {
+            first_name: this.regFirstName,
+            last_name: this.regLastName,
+            email: this.regEmail,
+            password: this.regPassword,
+            createdAt: today
+        }
+        this._apiService.register(user).subscribe((data) => {
+        var parsedDatas = data as any;
+        if(parsedDatas.code == 200) {
+            this.loginEmail = this.regEmail;
+            this.loginPassword = this.regPassword;
+            this.login();
+        } else {
+            this.toastrService.warning(parsedDatas.success);
+        }
+        });
+    } else {
+        this.toastrService.warning('Please fill all fields to register');
+    }
+  }*/
 
   onChange(value) {
     this.selectedRoom = value;
@@ -272,10 +222,6 @@ export class AppComponent implements OnInit{
         this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
       }
     }
-  }
-
-  outputMessageValue(ev) {
-    console.log('got something : ' + ev);
   }
 }
 
