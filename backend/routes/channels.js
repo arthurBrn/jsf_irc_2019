@@ -15,6 +15,9 @@ var Channels = {
   }, 
   getJoinedChannel: (userId, callback) => {
     return db.query('SELECT * from channels c, joinedChannel jc where c.id = jc.channelId and userId = ?', [userId] , callback);
+  },
+  getName: (channelId, callback) => {
+    return db.query('SELECT * from channels where id = ?', [channelId] , callback);
   }
 }
 

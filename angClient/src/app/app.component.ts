@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AppComponent implements OnInit{
 
-  selectionnedChannel: string;
+  selectionnedChannel;
   userPseudo;
   isAuth: boolean = false;
   userId: String;

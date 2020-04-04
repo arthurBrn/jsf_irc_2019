@@ -120,5 +120,16 @@ export class ApiService {
     });
   }
 
+  getChannelName(channelId) {
+column \'channelId\' at row    const body = new HttpParams()
+        .set('channelId', channelId)
+    return this.httpClient.post(this.baseUrl + 'channels/name',
+    body.toString(),
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
 
 }

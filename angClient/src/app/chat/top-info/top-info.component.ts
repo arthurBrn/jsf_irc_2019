@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ApiService } from '../../services/api.service'
 
 @Component({
   selector: 'app-top-info',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _apiService: ApiService) { }
+
+  @Input() channelId;
+  channelName;
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: any) {
+      if (changes.channelId.currentValue) {
+        this._apiService.getChannelName(changes.channelId.currentValue).subscribe((datas) => {
+          this.channelName = datas[0].name;
+        });
+      }
   }
 
 }

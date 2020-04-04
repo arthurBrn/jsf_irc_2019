@@ -55,7 +55,7 @@ export class UserChanelsComponent implements OnInit {
   }
 
   changeChannel(channel) {
-    this.selectionnedChannel.emit(channel);
+    this.selectionnedChannel.emit(channel.id);
   }
   
   openModal(template: TemplateRef<any>) {
@@ -80,7 +80,9 @@ export class UserChanelsComponent implements OnInit {
 
   searchChannel() {
     this.isAddingChannel = true;
+    console.log(this.user.id);
     this._apiService.getChannels(this.user.id).subscribe((datas) => {
+    console.log(datas);
       let promise = new Promise((resolve, reject) => {
       let size = 0;
       for (let id in datas) {

@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   }
 
   onChangeChannel(channel) {
-    this.selectionnedChannel.emit(channel.id);
+    this.selectionnedChannel.emit(channel);
   }
 
   onChangePseudo(user) {

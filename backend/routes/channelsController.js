@@ -58,4 +58,15 @@ router.post('/rename', (req, res) => {
   });
 });
 
+router.post('/name', (req, res) => {
+  Channels.getName(req.body.channelId, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 module.exports = router;
