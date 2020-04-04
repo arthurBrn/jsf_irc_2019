@@ -90,33 +90,6 @@ export class AppComponent implements OnInit{
     this.userPseudo = userPseudo;
   }
 
-
-  /*
-  register() {
-    if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
-        const today = new Date().toISOString();
-        const user = {
-            first_name: this.regFirstName,
-            last_name: this.regLastName,
-            email: this.regEmail,
-            password: this.regPassword,
-            createdAt: today
-        }
-        this._apiService.register(user).subscribe((data) => {
-        var parsedDatas = data as any;
-        if(parsedDatas.code == 200) {
-            this.loginEmail = this.regEmail;
-            this.loginPassword = this.regPassword;
-            this.login();
-        } else {
-            this.toastrService.warning(parsedDatas.success);
-        }
-        });
-    } else {
-        this.toastrService.warning('Please fill all fields to register');
-    }
-  }*/
-
   onChange(value) {
     this.selectedRoom = value;
     this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
