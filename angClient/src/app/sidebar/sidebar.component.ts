@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   @Output() userPseudo = new EventEmitter();
   user;
   @Output() newChannelEventFromSidebarToApp = new EventEmitter();
+  @Output() generalDisconnectEvent = new EventEmitter();
 
   constructor() { }
 
@@ -27,10 +28,14 @@ export class SidebarComponent implements OnInit {
     this.userPseudo.emit(user);
     this.user = user;
   }
-  
+
   onNewChanel(ev) {
     console.log('New name : ' + ev + ' from sidebar component');
     this.newChannelEventFromSidebarToApp.emit(ev);
+  }
+
+  onDisconnectEvent() {
+    this.generalDisconnectEvent.emit(true);
   }
 
 }
