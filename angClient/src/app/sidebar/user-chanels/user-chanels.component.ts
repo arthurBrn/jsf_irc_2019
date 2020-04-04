@@ -18,6 +18,7 @@ export class UserChanelsComponent implements OnInit {
   newChanel: string;
   connectedRooms = [];
   isAddingChannel = false;
+  showModal = false;
 
   constructor(
     private modalService: BsModalService,
@@ -58,16 +59,23 @@ export class UserChanelsComponent implements OnInit {
   }
   
   openModal(template: TemplateRef<any>) {
+    this.showModal = true;
     this.modalRef = this.modalService.show(template);
   }
 
   onAddChanel() {
-    this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
-      let datas = data as any;
-      this.addNewChannel(datas.insertId, this.newChanel).then(() => {
+    if (this.newChanel) {
+      this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
+        let datas = data as any;
+        this.joinNewChannel(datas.insertId, this.newChanel).then(() => {
         this.isAddingChannel = false;
+        this.showModal = false;
+        $('.modal-backdrop').remove();
+        this.newChanel = '';
       });
     });
+    }
+    
   }
 
   searchChannel() {
@@ -94,12 +102,12 @@ export class UserChanelsComponent implements OnInit {
   }
 
   joinChannel(room) {
-    this.addNewChannel(room.id, room.name).then(() => {
+    this.joinNewChannel(room.id, room.name).then(() => {
         this.isAddingChannel = false;
     });
   }
 
-  addNewChannel = (channelId, channelName) => {
+  joinNewChannel = (channelId, channelName) => {
     return new Promise((resolve, reject) => {
       const message = {
         'content': 'has joined the room',
