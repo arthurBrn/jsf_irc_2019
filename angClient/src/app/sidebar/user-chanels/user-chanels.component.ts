@@ -36,10 +36,11 @@ export class UserChanelsComponent implements OnInit {
       });
       promise.then((size) => {
         for (let i = 0; i < size; i++) {
+         this._chatService.joinRoom({ 'pseudo': this.user.pseudo, 'room': datas[i].id, 'display': false});
           this.connectedRooms.push({
             'id': datas[i].id,
             'name': datas[i].name,
-           'stared': datas[i].stared
+            'stared': datas[i].stared
           });
         }
       }).catch((err) => {
@@ -52,16 +53,8 @@ export class UserChanelsComponent implements OnInit {
     this.user.emit(user);
   }
 
-  addChannelEvent() {
-    this.renderAddChannelPopUp();
-  }
-
   changeChannel(channel) {
     this.selectionnedChannel.emit(channel);
-  }
-
-  renderAddChannelPopUp() {
-    //this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
   }
   
   openModal(template: TemplateRef<any>) {
@@ -71,7 +64,15 @@ export class UserChanelsComponent implements OnInit {
   onAddChanel() {
     this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
       let datas = data as any;
-      this._chatService.joinRoom(this.user.pseudo, datas.insertId);
+      this._chatService.joinRoom({ 'pseudo': this.user.pseudo, 'room': datas.insertId, 'display': true });
+      const message = {
+        'content': 'has joined the room',
+        'channelId': datas.insertId,
+        'userId': this.user.id,
+        'pseudo': this.user.pseudo,
+        'date': new Date().toISOString()
+      }
+      this._apiService.sendMessage(message).subscribe();
       this._apiService.addJoinedChannel({ 'userId': this.user.id, 'channelId': datas.insertId, 'stared': 0 }).subscribe();
       this.connectedRooms.push({ 'id': datas.insertId, 'name': this.newChanel, 'stared': 0 });
     });

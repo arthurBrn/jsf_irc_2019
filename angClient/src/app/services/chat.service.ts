@@ -11,8 +11,8 @@ export class ChatService {
 
   private socket = io('http://localhost:8080');
 
-  joinRoom(user, room) {
-      this.socket.emit('join', {user: user, room: room});
+  joinRoom(datas) {
+    this.socket.emit('join', {'user': datas.pseudo, 'room': datas.room, 'display': datas.display });
   }
   newUserJoined() {
       let observable = new Observable<{ user: String, message: String }>((observer) => {

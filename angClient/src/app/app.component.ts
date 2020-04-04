@@ -192,7 +192,7 @@ export class AppComponent implements OnInit{
           'date': new Date().toISOString()
         }).subscribe();
         this.is_connected = true;
-        this._chatService.joinRoom(this.user, this.selectedRoom);
+        // this._chatService.joinRoom(this.user, this.selectedRoom);
         this.messageInput.nativeElement.focus()
       } else {
         this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
