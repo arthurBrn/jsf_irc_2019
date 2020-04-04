@@ -3,6 +3,7 @@
     <app-user-info
       [usr]="pseudo"
       (userPseudo)="onChangePseudo($event)"
+      (userDisconnect)="onDisconnectEvent($event)"
     >
     </app-user-info>
     <app-user-chanels
@@ -10,10 +11,5 @@
       (selectionnedChannel)="onChangeChannel($event)"
       >
     </app-user-chanels>
-    <div>
-      <button class="btn btn-amber btn-block" style="position:absolute; right:0; bottom:0;" (click)="onDisconnectEvent()">
-        Disconnect
-      </button>
-    </div>
   </div>
 </div>

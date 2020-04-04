@@ -30,7 +30,7 @@ export class UserChanelsComponent implements OnInit {
       let promise = new Promise((resolve, reject) => {
       let size = 0;
       for (let id in datas) {
-        if(datas.hasOwnProperty(id)) size++; 
+        if(datas.hasOwnProperty(id)) size++;
       }
       resolve(size);
       });
@@ -60,10 +60,14 @@ export class UserChanelsComponent implements OnInit {
     this.selectionnedChannel.emit(channel);
   }
 
+  onFavChannel() {
+
+  }
+
   renderAddChannelPopUp() {
     //this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
   }
-  
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }

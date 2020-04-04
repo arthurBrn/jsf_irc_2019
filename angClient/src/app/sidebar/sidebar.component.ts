@@ -34,8 +34,10 @@ export class SidebarComponent implements OnInit {
     this.newChannelEventFromSidebarToApp.emit(ev);
   }
 
-  onDisconnectEvent() {
-    this.generalDisconnectEvent.emit(true);
+  onDisconnectEvent(event) {
+    if (event === true) {
+      this.generalDisconnectEvent.emit(true);
+    }
   }
 
 }

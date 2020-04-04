@@ -10,6 +10,7 @@ export class UserInfoComponent implements OnInit {
 
   @Input() usr;
   @Output() userPseudo = new EventEmitter();
+  @Output() userDisconnect = new EventEmitter();
 
   constructor(private _apiService: ApiService) { }
 
@@ -25,4 +26,7 @@ export class UserInfoComponent implements OnInit {
     alert('Changing user info');
   }
 
+  onUserDisconnect() {
+    this.userDisconnect.emit(true);
+  }
 }
