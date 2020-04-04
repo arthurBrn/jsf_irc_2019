@@ -3,9 +3,9 @@
     <div *ngIf="isAuth">
         <div class="row  overflow-hidden">
             <div class="col-lg-2 col-md-4 p-0  overflow-hidden">
-            <app-sidebar 
-                [chanels]="rooms" 
-                [pseudo]="usernm" 
+            <app-sidebar
+                [chanels]="rooms"
+                [pseudo]="usernm"
                 (selectionnedChannel)="onChangeChannel($event)"
                 (userPseudo)="onChangePseudo($event)"
             ></app-sidebar>
@@ -17,7 +17,7 @@
                 [isAuth]="isAuth"
                 [selectionnedChannel]="selectionnedChannel"
                 [user]="userPseudo"
-                (emittedValue)="outputMessageValue($event)"    
+                (emittedValue)="outputMessageValue($event)"
             ></app-chat>
             </div>
         </div>
@@ -63,26 +63,13 @@
     <div class="col-lg-12 card mt-5 mx-0 grey lighten-2 px-5">
         <div class="row">
             <!-- Login -->
-            <div class="col-lg-6 p-3 text-center">
-                <h1 class="p-3 mb-4 font-weight-bold">Login</h1>
-                <div class="input-group mb-3">
-                    <div class="col-lg-3 p-0">
-                        <span class="input-group-text value login-span" id="basic-addon1" style="border-top-right-radius:0px; border-bottom-right-radius:0px;">Email</span>
-                    </div>
-                    <div class="col-lg-9 p-0">
-                        <input type="text" class="form-control" [(ngModel)]="loginEmail" placeholder="Email" style="border-top-left-radius:0px; border-bottom-left-radius:0px;">
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="col-lg-3 p-0">
-                        <span class="input-group-text value" id="basic-addon1" style="border-top-right-radius:0px; border-bottom-right-radius:0px;">Password</span>
-                    </div>
-                    <div class="col-lg-9 p-0">
-                        <input type="password" class="form-control" [(ngModel)]="loginPassword" placeholder="Password" style="border-top-left-radius:0px; border-bottom-left-radius:0px;">
-                    </div>
-                </div>
-                <button class="btn btn-default btn-block" (click)="login()">Login</button>
-            </div>
+          <div class="col-lg-6 p-3 text-center">
+            <app-login
+
+            >
+
+            </app-login>
+          </div>
             <!-- Register -->
             <div class="col-lg-6 p-3 text-center">
                 <h1 class="p-3 mb-4 font-weight-bold">Register</h1>

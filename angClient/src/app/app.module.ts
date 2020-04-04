@@ -16,6 +16,7 @@ import { InputMsgComponent } from './chat/input-msg/input-msg.component';
 import { ModalComponent } from './sidebar/modal/modal.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { TopInfoComponent } from './chat/top-info/top-info.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { TopInfoComponent } from './chat/top-info/top-info.component';
     DisplayZoneComponent,
     InputMsgComponent,
     ModalComponent,
-    TopInfoComponent
+    TopInfoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

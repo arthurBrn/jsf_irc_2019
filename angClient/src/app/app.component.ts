@@ -2,9 +2,9 @@ import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter, Templat
 import { ChatService } from './services/chat.service';
 import { ApiService } from './services/api.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from '@angular/forms';
 import * as $ from 'jquery';
-import {Channels} from "../Model/Channels";
+import {Channels} from '../Model/Channels';
 
 @Component({
   selector: 'app-root',
@@ -26,14 +26,15 @@ export class AppComponent implements OnInit{
   userId: String;
 
   ngOnInit() {
-    localStorage.setItem('login', '2');
+    // localStorage.setItem('login', '2');
+    localStorage.removeItem('login');
     this._apiService.getChannels().subscribe((data) => {
         if (localStorage.getItem('login')) {
             this.userId = localStorage.getItem('login');
             console.log(this.userId);
             this.isAuth = true;
         }
-        let parsedDatas = data as any; 
+        let parsedDatas = data as any;
         for (const line of parsedDatas) {
            this.rooms.push(line);
         }
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit{
     // this.loginPassword = 'test';
     // this.login()
   }
-  
+
   onChangeChannel(selectionnedChannel) {
     this.selectionnedChannel = selectionnedChannel;
   }
@@ -55,7 +56,7 @@ export class AppComponent implements OnInit{
     this.userPseudo = userPseudo;
   }
 
-  login() {
+  /* login() {
     if (this.loginEmail && this.loginPassword) {
         this._apiService.login(this.loginEmail, this.loginPassword).subscribe((data ) => {
             var parsedDatas = data as any;
@@ -70,8 +71,9 @@ export class AppComponent implements OnInit{
     } else {
         this.toastrService.warning('Email or password can\'t be empty');
     }
-  }
+  } */
 
+  /*
   register() {
     if (this.regEmail && this.regPassword && this.regFirstName && this.regLastName) {
         const today = new Date().toISOString();
@@ -95,7 +97,7 @@ export class AppComponent implements OnInit{
     } else {
         this.toastrService.warning('Please fill all fields to register');
     }
-  }
+  }*/
 
 
 
@@ -134,8 +136,8 @@ export class AppComponent implements OnInit{
   connected_rooms = [];
   selectedRoom: String;
   roomForm: FormGroup;
-  
-  
+
+
   oldName: String;
   newName: String;
   usernm = this.user;
@@ -164,7 +166,7 @@ export class AppComponent implements OnInit{
       .subscribe((data) => this.messages.push(data));
   }
 
-  
+
   onChange(value) {
     this.selectedRoom = value;
     this.joinState = (this.connected_rooms.indexOf(value) >= 0) ? false : true;
@@ -231,7 +233,7 @@ export class AppComponent implements OnInit{
           console.log(persistDatas);
           this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
           this.message = '';
-        }                      
+        }
     } else {
       this.toastrService.warning('You need a username and select a room to send messages');
     }
