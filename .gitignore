@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-backend/database/dbirc
-.idea/
-=======
 .idea
 backend/database/dbirc/*
->>>>>>> 999f411a8e3c2076f659e101001c5d789dbe9665
+backend/database/dbirc/
