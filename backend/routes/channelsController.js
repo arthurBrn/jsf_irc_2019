@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 var Channels = require('./channels');
 
-router.get('/', (req, res) => {
-  Channels.getChannels((err, rows) => {
+router.post('/notJoined', (req, res) => {
+  Channels.getChannels(req.body.userId, (err, rows) => {
     if (err) {
       res.status(400).json(err);
     } else {

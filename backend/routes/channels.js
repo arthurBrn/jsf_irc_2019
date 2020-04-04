@@ -1,8 +1,8 @@
 var db = require('../database/db')
 
 var Channels = {
-  getChannels: (callback) => { 
-    return db.query('SELECT * from channels', callback);
+  getChannels: (userId, addJoinedcallback) => { 
+    return db.query('SELECT * from channels c where id not in (select channelId FROM joinedChannel jc where userId = ?)', [userId], callback);
   },
   insertChannel: (channel, callback) => {
     return db.query('insert into channels (name) values ( ? )', [channel.name], callback);

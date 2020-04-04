@@ -11,7 +11,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 })
 export class UserChanelsComponent implements OnInit {
 
-  rooms = [];
+  allRooms = [];
   @Output() selectionnedChannel = new EventEmitter<String>();
   @Input() user;
   modalRef: BsModalRef;
@@ -64,22 +64,55 @@ export class UserChanelsComponent implements OnInit {
   onAddChanel() {
     this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
       let datas = data as any;
-      this._chatService.joinRoom({ 'pseudo': this.user.pseudo, 'room': datas.insertId, 'display': true });
+      this.addNewChannel(datas.insertId, this.newChanel).then(() => {
+        this.isAddingChannel = false;
+      });
+    });
+  }
+
+  searchChannel() {
+    this.isAddingChannel = true;
+    this._apiService.getChannels(this.user.id).subscribe((datas) => {
+      let promise = new Promise((resolve, reject) => {
+      let size = 0;
+      for (let id in datas) {
+        if(datas.hasOwnProperty(id)) size++;
+      }
+      resolve(size);
+      });
+      promise.then((size) => {
+        for (let i = 0; i < size; i++) {
+          this.allRooms.push({
+            'id': datas[i].id,
+            'name': datas[i].name,
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+  }
+
+  joinChannel(room) {
+    this.addNewChannel(room.id, room.name).then(() => {
+        this.isAddingChannel = false;
+    });
+  }
+
+  addNewChannel = (channelId, channelName) => {
+    return new Promise((resolve, reject) => {
       const message = {
         'content': 'has joined the room',
-        'channelId': datas.insertId,
+        'channelId': channelId,
         'userId': this.user.id,
         'pseudo': this.user.pseudo,
         'date': new Date().toISOString()
       }
       this._apiService.sendMessage(message).subscribe();
-      this._apiService.addJoinedChannel({ 'userId': this.user.id, 'channelId': datas.insertId, 'stared': 0 }).subscribe();
-      this.connectedRooms.push({ 'id': datas.insertId, 'name': this.newChanel, 'stared': 0 });
+      this.connectedRooms.push({ 'id': channelId, 'name': channelName, 'stared': 0 });
+      this._chatService.joinRoom({ 'pseudo': this.user.pseudo, 'room': channelId, 'display': true });
+      this._apiService.addJoinedChannel({ 'userId': this.user.id, 'channelId': channelId, 'stared': 0 }).subscribe((datas) => resolve());
     });
-    this.isAddingChannel = false;
-  }
-
-  searchChannel() {
-    this.isAddingChannel = true;
+      
   }
 }

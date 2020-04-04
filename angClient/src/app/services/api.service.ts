@@ -63,8 +63,15 @@ export class ApiService {
       });
   }
 
-  getChannels() {
-    return this.httpClient.get(this.baseUrl + 'channels');
+  getChannels(userId) {
+    const body = new HttpParams()
+        .set('userId', userId)
+    return this.httpClient.post(this.baseUrl + 'channels/notJoined',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
   }
 
   insertChannel(datas) {
