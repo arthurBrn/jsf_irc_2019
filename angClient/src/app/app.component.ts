@@ -26,25 +26,11 @@ export class AppComponent implements OnInit{
   userId: String;
 
   ngOnInit() {
-    localStorage.setItem('login', '2');
-    this._apiService.getChannels().subscribe((data) => {
-        if (localStorage.getItem('login')) {
-            this.userId = localStorage.getItem('login');
-            console.log(this.userId);
-            this.isAuth = true;
-        }
-        let parsedDatas = data as any; 
-        for (const line of parsedDatas) {
-           this.rooms.push(line);
-        }
-        this.roomForm = this.fb.group({
-            roomControl: [this.rooms[0]]
-        });
-        this.selectedRoom = parsedDatas[0].name;
-    });
-    // this.loginEmail = 'maxime@mail.com';
-    // this.loginPassword = 'test';
-    // this.login()
+      if (localStorage.getItem('login')) {
+        this.userId = localStorage.getItem('login');
+        console.log(this.userId);
+        this.isAuth = true;
+      }
   }
   
   onChangeChannel(selectionnedChannel) {
