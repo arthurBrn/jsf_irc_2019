@@ -1,4 +1,4 @@
-<div class="stylish-color-dark sidebar" style="height: 100vh">
+<div class="stylish-color-dark sidebar overflow-auto" style="height: 100vh">
   <div class="sidebar-sticky">
     <app-user-info
       [usr]="pseudo"
@@ -8,7 +8,6 @@
     <app-user-chanels
       [user]="user"
       (selectionnedChannel)="onChangeChannel($event)"
-      (newChanelEvent)="onNewChanel($event)"
       >
     </app-user-chanels>
   </div>

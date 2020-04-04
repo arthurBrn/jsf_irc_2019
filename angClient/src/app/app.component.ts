@@ -275,12 +275,5 @@ export class AppComponent implements OnInit{
   outputMessageValue(ev) {
     console.log('got something : ' + ev);
   }
-
-  onNewChanel(ev) {
-    console.log('New name : ' + ev + ' from appcomponent');
-    // this._apiService.insertChannel({name: ev, stared: '0'}).subscribe((data) => console.log(data));
-    // this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
-    this._apiService.insertChannel({name: ev, stared: '0'}).subscribe();
-  }
 }
 
