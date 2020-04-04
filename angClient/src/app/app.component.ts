@@ -223,5 +223,15 @@ export class AppComponent implements OnInit{
       }
     }
   }
+
+  onLoginEvent(event) {
+    console.log('LOGIN EVENT : ' + event);
+    this.userId = event;
+    this.isAuth = true;
+  }
+
+  onRegisterEvent(event) {
+    console.log('REGISTER EVENT : ' + event);
+  }
 }
 
