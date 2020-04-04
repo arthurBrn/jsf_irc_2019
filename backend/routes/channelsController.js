@@ -35,8 +35,19 @@ router.post('/', (req, res) => {
   });
 });
 
-router.post('/joined', (req, res) => {
-  Channels.getJoined(req.body.userId, (err, rows) => {
+router.post('/addJoined', (req, res) => {
+  Channels.addJoinedChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+router.post('/getJoined', (req, res) => {
+  Channels.getJoinedChannel(req.body.userId, (err, rows) => {
     if (err) {
       console.log(err);
       res.status(400).json(err);

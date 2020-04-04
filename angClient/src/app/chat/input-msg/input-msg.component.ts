@@ -37,7 +37,7 @@ export class InputMsgComponent implements OnInit {
             'date': new Date().toISOString()
           }
           console.log('message' + message);
-          //this._apiService.sendMessage(message).subscribe();
+          this._apiService.sendMessage(message).subscribe();
           this.messageContent = '';
         }
       } else {

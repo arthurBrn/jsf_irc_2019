@@ -89,4 +89,28 @@ export class ApiService {
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
+
+  getJoinedChannel(userId) {
+    const body = new HttpParams()
+        .set('userId', userId)
+    return this.httpClient.post(this.baseUrl + 'channels/getJoined',
+    body.toString(),
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  addJoinedChannel(datas) {
+    const body = new HttpParams()
+        .set('userId', datas.userId)
+        .set('channelId', datas.channelId)
+        .set('stared', datas.stared)
+    return this.httpClient.post(this.baseUrl + 'channels/addJoined',
+    body.toString(),
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    }); 
+  }
 }

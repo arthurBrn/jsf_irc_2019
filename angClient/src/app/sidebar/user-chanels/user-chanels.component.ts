@@ -11,7 +11,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 })
 export class UserChanelsComponent implements OnInit {
 
-  @Input() rooms;
+  rooms = [];
   @Output() selectionnedChannel = new EventEmitter<String>();
   @Output() newChanelEvent = new EventEmitter();
   @Input() user;
@@ -26,6 +26,26 @@ export class UserChanelsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._apiService.getJoinedChannel(localStorage.getItem('login')).subscribe((datas) => {
+      let promise = new Promise((resolve, reject) => {
+      let size = 0;
+      for (let id in datas) {
+        if(datas.hasOwnProperty(id)) size++; 
+      }
+      resolve(size);
+      });
+      promise.then((size) => {
+        for (let i = 0; i < size; i++) {
+          this.rooms.push({
+            'id': datas[i].id,
+            'name': datas[i].name,
+           'stared': datas[i].stared
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
   }
 
   onChangePseudo(user) {
