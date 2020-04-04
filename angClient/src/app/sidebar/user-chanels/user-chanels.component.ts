@@ -68,12 +68,12 @@ export class UserChanelsComponent implements OnInit {
       this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
         let datas = data as any;
         this.joinNewChannel(datas.insertId, this.newChanel).then(() => {
-        this.isAddingChannel = false;
-        this.showModal = false;
-        $('.modal-backdrop').remove();
-        this.newChanel = '';
+          this.isAddingChannel = false;
+          this.showModal = false;
+          $('.modal-backdrop').remove();
+          this.newChanel = '';
+        });
       });
-    });
     }
     
   }
