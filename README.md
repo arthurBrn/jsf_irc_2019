@@ -21,6 +21,10 @@ Création d'un server IRC en NodeJs, ExpressJS avec un client angular
 | ------ | ------ |
 | Dropbox | [Angular image](https://hub.docker.com/r/alexsuch/angular-cli) |
 
+### Database
+![MCD](doc/MCD_CAPTURE.png)
+
+
 ### Installation
 ```sh
 $ git clone git@gitlab.com:baronbrn/jsf_irc_2019.git
