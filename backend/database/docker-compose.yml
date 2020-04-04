@@ -17,5 +17,5 @@ services:
       - '3306'
       # Where our data will be persisted
     volumes:
-      - ./db:/var/lib/mysql
+      - ./dbirc:/var/lib/mysql
 # Names our volume

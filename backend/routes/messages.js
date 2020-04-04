@@ -2,7 +2,7 @@ var db = require('../database/db')
 
 var Messages = {
   getMessages: (datas, callback) => { 
-    return db.query('select m.pseudo, m.content from users u, messages m where u.id = m.userId and m.channelId = ? order by m.`date` ASC', [datas.channelId], callback);
+    return db.query('select m.pseudo, m.content from users u, messages m where u.id = m.userId and m.channx²xelId = ? order by m.`date` ASC', [datas.channelId], callback);
   },
   insertMessage: (datas, callback) => {
     var objMsg = {
