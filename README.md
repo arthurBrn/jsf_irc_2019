@@ -53,18 +53,10 @@ Création d'un server IRC en NodeJs, ExpressJS avec un client angular
 ### Installation
 ```sh
 $ git clone git@gitlab.com:baronbrn/jsf_irc_2019.git
-$ cd jsf_irc_2019/angClient
-$ npm install
-$ cd ../backend
-$ npm install 
-$ cd database
-$ docker-compose up
-$ cd ../.. 
-$ ./script_fronts/launch_server.sh
-$ node backend/app.js
+$ cd jsf_irc_2019/
+$ ./init.sh
 ```
 > Now you can go to 127.0.0.1:4200
-
 ### Stop the application
 ```sh
 $ cd backend
