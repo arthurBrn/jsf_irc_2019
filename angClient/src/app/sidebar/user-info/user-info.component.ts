@@ -24,7 +24,6 @@ export class UserInfoComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChange) {
-      
       for (let propName in changes) {  
         let change = changes[propName];
         if (propName == 'channel' && change.currentValue !== undefined) {
