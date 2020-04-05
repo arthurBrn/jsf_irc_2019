@@ -1,7 +1,6 @@
-<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 m0 text-white lead">
-    {{ usr }}
-  <a (click)="changeUserInfo()">
-    <!-- <fa name="cog" style="float:right; color:white;"></fa> -->
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 m0 text-white lead mt-4">
+  <a (click)="openChangeUserPseudoModal(changingPseudoRef)">
+    {{ usr | titlecase }}
   </a>
 </h6>
 <a (click)="onUserDisconnect()">
@@ -10,12 +9,19 @@
 <hr style="border: 1px solid white;">
 
 
-
-<!--
-
-
-      <button class="btn btn-amber btn-block" style="position:absolute; right:0; bottom:0;" (click)="onDisconnectEvent()">
-        Disconnect
+<ng-template #changingPseudoRef>
+  <div class="modal-content">
+    <div class="modal-header text-center">
+      <h5 class="modal-title">Need a new name ?</h5>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="newChanelName" class="form-control" placeholder="Chanel name..."
+             [(ngModel)]="newPseudo" (keydown.enter)="onChangePseudoEvent()" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-block btn-elegant" (click)="onChangePseudoEvent()">
+        Validate
       </button>
-
--->
+    </div>
+  </div>
+</ng-template>

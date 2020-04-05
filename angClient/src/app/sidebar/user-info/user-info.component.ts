@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ApiService } from '../../services/api.service'
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-user-info',
@@ -11,8 +12,13 @@ export class UserInfoComponent implements OnInit {
   @Input() usr;
   @Output() userPseudo = new EventEmitter();
   @Output() userDisconnect = new EventEmitter();
+  modalRef: BsModalRef;
+  newPseudo: string;
 
-  constructor(private _apiService: ApiService) { }
+  constructor(
+    private _apiService: ApiService,
+    private modalService: BsModalService,
+  ) { }
 
   ngOnInit() {
     this._apiService.getUser(localStorage.getItem('login')).subscribe((data) => {
@@ -21,8 +27,12 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  changeUserInfo() {
-    alert('Changing user info');
+  openChangeUserPseudoModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onChangePseudoEvent(template: TemplateRef<any>) {
+    this.modalService.hide(1);
   }
 
   onUserDisconnect() {

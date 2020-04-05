@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
-import { ApiService } from '../../services/api.service'
-import { ChatService } from '../../services/chat.service'
+import { ApiService } from '../../services/api.service';
+import { ChatService } from '../../services/chat.service';
 import * as $ from 'jquery';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
@@ -57,7 +57,7 @@ export class UserChanelsComponent implements OnInit {
   changeChannel(channel) {
     this.selectionnedChannel.emit(channel.id);
   }
-  
+
   openModal(template: TemplateRef<any>) {
     this.showModal = true;
     this.modalRef = this.modalService.show(template);
@@ -75,7 +75,7 @@ export class UserChanelsComponent implements OnInit {
         });
       });
     }
-    
+
   }
 
   searchChannel() {
