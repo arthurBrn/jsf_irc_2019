@@ -91,7 +91,7 @@ router.post('/favChannel', (req, res) => {
   });
 });
 
-router.delete('/leave', (req, res) => {
+router.post('/leave', (req, res) => {
   Channels.leaveChannel(req.body, (err, rows) => {
     if (err) {
       console.log(err);
