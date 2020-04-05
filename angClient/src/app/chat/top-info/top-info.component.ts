@@ -30,4 +30,18 @@ export class TopInfoComponent implements OnInit {
       }
   }
 
+  leaveChannel() {
+//     this.is_connected = (this.connected_rooms.length == 0) ?  false : true;
+//     const index = this.connected_rooms.indexOf(this.selectedRoom);
+//     this.connected_rooms.splice(index);
+//     this.joinState = true;
+//     this._chatService.leaveRoom(this.selectedRoom);
+//     this._apiService.sendMessage({
+//       'content': 'has left the room',
+//       'channelId': this.selectedRoom,
+//       'userId': this.userId,
+//       'pseudo': this.user,
+//       'date': new Date().toISOString()
+//     }).subscribe();
+  }
 }

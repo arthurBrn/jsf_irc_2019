@@ -28,15 +28,15 @@ io.sockets.on('connection', socket => {
       .to(data.room)
       .emit('new-user', { user: data.user, content: 'has joined the room', display: data.display, channel: data.room })
   })
-  socket.on('disconnect', () => {
-    socket.broadcast
-      .to(socket.room)
-      .emit('leave-user', { user: socket.user, content: 'disconnected' })
-  })
+  // socket.on('disconnect', () => {
+  //   socket.broadcast
+  //     .to(socket.room)
+  //     .emit('leave-user', { user: socket.user, content: 'disconnected' })
+  // })
   socket.on('leave', room => {
     socket.broadcast
       .to(room)
-      .emit('leave-user', { user: socket.user, content: 'has left the room' })
+      .emit('leave-user', { user: socket.user, content: 'has left the room', channel: room })
     socket.leave(room)
   })
   socket.on('rename', data => {

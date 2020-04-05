@@ -24,7 +24,10 @@ var Channels = {
   },
   countUsers: (channelId, callback) => {
     return db.query('select count(distinct userId) as nb from joinedChannel jc where channelId = ?', [channelId] , callback);
-  }
+  },
+  leaveChannel: (datas, callback) => {
+    return db.query('delete FROM  joinedChannel where channelId = ? and userId = ?', [datas.channelId, datas.userId] , callback);
+  },
 }
 
 module.exports = Channels;

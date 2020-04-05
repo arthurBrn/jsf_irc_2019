@@ -91,4 +91,14 @@ router.post('/favChannel', (req, res) => {
   });
 });
 
+router.delete('/leave', (req, res) => {
+  Channels.leaveChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
 module.exports = router;
