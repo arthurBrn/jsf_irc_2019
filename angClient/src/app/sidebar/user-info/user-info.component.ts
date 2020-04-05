@@ -42,12 +42,12 @@ export class UserInfoComponent implements OnInit {
             this.usr = data[0].first_name;
             this.userPseudo.emit({ 'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
           });
-        }  
+        }
     });
   }
 
   ngOnChanges(changes: SimpleChange) {
-      for (let propName in changes) {  
+      for (let propName in changes) {
         let change = changes[propName];
         if (propName == 'channel' && change.currentValue !== undefined) {
           this.channelId = change.currentValue;
@@ -85,6 +85,7 @@ export class UserInfoComponent implements OnInit {
       }
       this.userPseudo.emit({ 'id': localStorage.getItem('login'), 'pseudo': this.newPseudo });
       this.usr = this.newPseudo;
+      this.modalService.hide(1);
     } else {
       this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
     }
