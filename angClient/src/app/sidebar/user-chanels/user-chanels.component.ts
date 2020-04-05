@@ -57,7 +57,7 @@ export class UserChanelsComponent implements OnInit {
   changeChannel(channel) {
     this.selectionnedChannel.emit(channel.id);
   }
-  
+
   openModal(template: TemplateRef<any>) {
     this.showModal = true;
     this.modalRef = this.modalService.show(template);
@@ -75,7 +75,6 @@ export class UserChanelsComponent implements OnInit {
         });
       });
     }
-    
   }
 
   searchChannel() {
@@ -125,9 +124,7 @@ export class UserChanelsComponent implements OnInit {
     });
   }
 
-  onFavChannel(channel) {
-    console.log('user id : ' + this.user.id);
-    console.log('channel id : ' + channel.id);
-    this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: 1}).subscribe();
+  onFavChannel(channel, stared) {
+    this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: stared}).subscribe();
   }
 }

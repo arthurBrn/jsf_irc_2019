@@ -12,7 +12,7 @@
                 <a class="nav-link text-light" style="text-decoration: none;" (click)="changeChannel(cha)">
                 {{ cha.name }}
                 </a>
-                <a>
+                <a (click)="onFavChannel(cha, 0)">
                 <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
                 </a>
             </li>
@@ -35,7 +35,7 @@
             <a class="nav-link text-light" style="text-decoration: none;" (click)="changeChannel(cha)">
                 # {{ cha.name }}
             </a>
-            <a  (click)="onFavChannel(cha)">
+            <a  (click)="onFavChannel(cha, 1)">
                 <i class="far fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
             </a>
             </li>
