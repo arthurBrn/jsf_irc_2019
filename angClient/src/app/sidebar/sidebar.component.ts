@@ -35,7 +35,6 @@ export class SidebarComponent implements OnInit {
   }
 
   onNewChanel(ev) {
-    console.log('New name : ' + ev + ' from sidebar component');
     this.newChannelEventFromSidebarToApp.emit(ev);
   }
 

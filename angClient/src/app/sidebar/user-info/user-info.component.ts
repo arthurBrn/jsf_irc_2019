@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 import { ChatService } from '../../services/chat.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-user-info',
@@ -30,9 +31,18 @@ export class UserInfoComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this._apiService.getUser(localStorage.getItem('login')).subscribe((data) => {
-      this.usr = data[0].first_name;
-      this.userPseudo.emit({'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
+
+    this._apiService.getPseudo(localStorage.getItem('login')).subscribe((datas) => {
+        let value = datas[0];
+        if (value) {
+          this.usr = datas[0].pseudo;
+          this.userPseudo.emit({ 'id': localStorage.getItem('login'), 'pseudo': datas[0].pseudo });
+        } else {
+          this._apiService.getUser(localStorage.getItem('login')).subscribe((data) => {
+            this.usr = data[0].first_name;
+            this.userPseudo.emit({ 'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
+          });
+        }  
     });
   }
 
@@ -71,9 +81,9 @@ export class UserInfoComponent implements OnInit {
           'pseudo': this.oldPseudo,
           'date': new Date().toISOString()
         };
-        this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
+        this._apiService.sendMessage(persistDatas).subscribe();
       }
-      this.userPseudo.emit(this.newPseudo);
+      this.userPseudo.emit({ 'id': localStorage.getItem('login'), 'pseudo': this.newPseudo });
       this.usr = this.newPseudo;
     } else {
       this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');

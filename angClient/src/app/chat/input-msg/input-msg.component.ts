@@ -16,6 +16,7 @@ export class InputMsgComponent implements OnInit {
   @Input() user;
   @Input() channelId;
   userInfo;
+  isPseudoChanged = false;
 
   constructor(
     private _chatService: ChatService,
@@ -24,16 +25,16 @@ export class InputMsgComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.userInfo = this.user;
+    
   }
 
   ngOnChanges(changes: SimpleChange) {
       for (let propName in changes) {
         let change = changes[propName];
         if (propName == 'user' && change.currentValue !== undefined) {
-          this.userInfo = {
+          this.user = {
             'id': localStorage.getItem('login'),
-            'pseudo': change.currentValue
+            'pseudo': change.currentValue.pseudo
           };
         }
       }
@@ -46,15 +47,15 @@ export class InputMsgComponent implements OnInit {
           const message = {
             'content': this.messageContent,
             'channelId': this.channelId,
-            'userId': this.userInfo.id,
-            'pseudo': this.userInfo.pseudo,
+            'userId': this.user.id,
+            'pseudo': this.user.pseudo,
             'date': new Date().toISOString()
           }
           this._apiService.sendMessage(message).subscribe();
           this.messageContent = '';
         }
       } else {
-        this._toastrService.warning('You need to join a room to send messages');
+        this._toastrService.warning('You need to select a room to send messages');
       }
   }
 

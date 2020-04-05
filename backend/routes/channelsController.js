@@ -101,4 +101,15 @@ router.post('/leave', (req, res) => {
     }
   });
 });
+
+router.post('/pseudo', (req, res) => {
+  Channels.pseudo(req.body.userId, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
 module.exports = router;

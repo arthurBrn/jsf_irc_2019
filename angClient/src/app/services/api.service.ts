@@ -178,4 +178,15 @@ export class ApiService {
           .set('Content-Type', 'application/x-www-form-urlencoded')
       });
     }
+
+    getPseudo(userId) {
+    const body = new HttpParams()
+      .set('userId', userId)
+    return this.httpClient.post(this.baseUrl + 'channels/pseudo',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
+    }
 }

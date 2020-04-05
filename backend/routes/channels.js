@@ -28,6 +28,9 @@ var Channels = {
   leaveChannel: (datas, callback) => {
     return db.query('delete FROM  joinedChannel where channelId = ? and userId = ?', [datas.channelId, datas.userId] , callback);
   },
+  pseudo: (userId, callback) => {
+    return db.query('select pseudo from messages m where userId = ? order by date desc LIMIT 1', [userId] , callback);
+  },
 }
 
 module.exports = Channels;

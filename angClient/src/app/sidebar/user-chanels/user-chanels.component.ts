@@ -152,8 +152,6 @@ export class UserChanelsComponent implements OnInit {
 
   onRenameChannel() {
     if (this.newChannelNameInput.match(/^[a-z" "A-Z0-9_.-]*$/)) {
-      console.log('channel id : ' + this.idOfChannelToRename);
-      console.log('channel naùe : ' + this.newChannelNameInput);
       this.modalService.hide(1);
       this._apiService.renameChannel({channelName: this.newChannelNameInput, channelId: this.idOfChannelToRename}).subscribe();
     } else {
