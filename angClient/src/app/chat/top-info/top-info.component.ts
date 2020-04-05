@@ -12,6 +12,8 @@ export class TopInfoComponent implements OnInit {
 
   @Input() channelId;
   channelName;
+  showTopBar = false;
+  nbChannelUsers;
 
   ngOnInit() {
   }
@@ -21,6 +23,10 @@ export class TopInfoComponent implements OnInit {
         this._apiService.getChannelName(changes.channelId.currentValue).subscribe((datas) => {
           this.channelName = datas[0].name;
         });
+        this._apiService.countUsers(changes.channelId.currentValue).subscribe((datas) => {
+          this.nbChannelUsers = datas[0].nb;
+        });
+        this.showTopBar = true;
       }
   }
 

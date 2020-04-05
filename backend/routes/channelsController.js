@@ -69,4 +69,15 @@ router.post('/name', (req, res) => {
   });
 });
 
+router.post('/countUsers', (req, res) => {
+  Channels.countUsers(req.body.channelId, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 module.exports = router;
