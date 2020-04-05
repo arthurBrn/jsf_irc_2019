@@ -17,7 +17,7 @@ var Channels = {
     return db.query('SELECT * from channels c, joinedChannel jc where c.id = jc.channelId and userId = ?', [userId] , callback);
   },
   addFavChannel: (datas, callback) => {
-    return db.query('UPDATE joinedChannel SET stared = ? WHERE channelId = ? AND userId = ?', [datas.channelId, datas.userId, datas.staredValue], callback);
+    return db.query('UPDATE joinedChannel SET stared = ? WHERE channelId = ? AND userId = ?', [datas.staredValue, datas.channelId, datas.userId], callback);
   },
   getName: (channelId, callback) => {
     return db.query('SELECT * from channels where id = ?', [channelId] , callback);
