@@ -31,8 +31,9 @@ export class UserInfoComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  onChangePseudoEvent(template: TemplateRef<any>) {
+  onChangePseudoEvent() {
     this.modalService.hide(1);
+    console.log(this.newPseudo);
   }
 
   onUserDisconnect() {

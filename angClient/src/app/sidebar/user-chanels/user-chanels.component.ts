@@ -75,7 +75,7 @@ export class UserChanelsComponent implements OnInit {
         });
       });
     }
-
+    this.modalService.hide(1);
   }
 
   searchChannel() {
