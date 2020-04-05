@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { ChatService } from '../../services/chat.service'
 import { ApiService } from '../../services/api.service'
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,7 @@ export class InputMsgComponent implements OnInit {
   @Input() isAuth;
   @Input() user;
   @Input() channelId;
+  userInfo;
 
   constructor(
     private _chatService: ChatService,
@@ -23,6 +24,19 @@ export class InputMsgComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+      this.userInfo = this.user;
+  }
+
+  ngOnChanges(changes: SimpleChange) {
+      for (let propName in changes) {
+        let change = changes[propName];
+        if (propName == 'user' && change.currentValue !== undefined) {
+          this.userInfo = {
+            'id': localStorage.getItem('login'),
+            'pseudo': change.currentValue
+          };
+        }
+      }
   }
 
   sendMessage() {
@@ -32,8 +46,8 @@ export class InputMsgComponent implements OnInit {
           const message = {
             'content': this.messageContent,
             'channelId': this.channelId,
-            'userId': this.user.id,
-            'pseudo': this.user.pseudo,
+            'userId': this.userInfo.id,
+            'pseudo': this.userInfo.pseudo,
             'date': new Date().toISOString()
           }
           this._apiService.sendMessage(message).subscribe();

@@ -48,7 +48,7 @@ export class ChatService {
       return observable;
   }
   rename(datas) {
-      this.socket.emit('rename', datas);
+    this.socket.emit('rename', datas);
   }
 
   userRenamed() {

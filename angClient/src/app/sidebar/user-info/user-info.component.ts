@@ -17,7 +17,7 @@ export class UserInfoComponent implements OnInit {
   @Input() connectedRooms = [];
   @Output() userPseudo = new EventEmitter();
   @Output() userDisconnect = new EventEmitter();
-  channelId;
+  channelId = 0;
   modalRef: BsModalRef;
   oldPseudo: string;
   newPseudo: string;
@@ -82,16 +82,16 @@ export class UserInfoComponent implements OnInit {
 
   onChangePseudoEvent() {
     if (this.newPseudo.match(/^[a-z" "A-Z0-9_.-]*$/)) {
-      const datas = {
-        oldName: this.oldPseudo,
-        newName: this.newPseudo,
-        room: this.channelId
-      }
-      this._chatService.rename(datas);
       for (const room of this.connectedRooms) {
+        const datas = {
+          oldName: this.oldPseudo,
+          newName: this.newPseudo,
+          room: room.id
+        }
+        this._chatService.rename(datas);
         const persistDatas = {
           'content': 'renamed to ' + this.newPseudo,
-          'channelId': room,
+          'channelId': room.id,
           'userId': localStorage.getItem('login'),
           'pseudo': this.oldPseudo,
           'date': new Date().toISOString()
@@ -99,6 +99,7 @@ export class UserInfoComponent implements OnInit {
         this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
       }
       this.userPseudo.emit(this.newPseudo);
+      this.usr = this.newPseudo;
     } else {
       this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
     }
