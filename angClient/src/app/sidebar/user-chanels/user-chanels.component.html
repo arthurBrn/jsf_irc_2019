@@ -15,6 +15,9 @@
                 <a (click)="onFavChannel(cha, 0)">
                 <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
                 </a>
+              <a href="#" (click)="onOpenModalChannelRemaining(renameChannelRef, cha)">
+                <i class="fas fa-pen" style="float:right; color:white; position:relative; bottom:25px; right:25px;"></i>
+              </a>
             </li>
             </div>
         </div>
@@ -38,6 +41,9 @@
             <a  (click)="onFavChannel(cha, 1)">
                 <i class="far fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
             </a>
+              <a href="#" (click)="onOpenModalChannelRemaining(renameChannelRef, cha)">
+                <i class="fas fa-pen" style="float:right; color:white; position:relative; bottom:25px; right:25px;"></i>
+              </a>
             </li>
             </div>
         </div>
@@ -88,4 +94,22 @@
         </button>
       </div>
     </div>
+</ng-template>
+
+
+<ng-template #renameChannelRef>
+  <div class="modal-content">
+    <div class="modal-header text-center">
+      <h5 class="modal-title">New channel name</h5>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="newChanelName" class="form-control" placeholder="Chanel name..."
+             [(ngModel)]="newChannelName" (keydown.enter)="onRenameChannel()" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-elegant" (click)="onRenameChannel()">
+        Validate
+      </button>
+    </div>
+  </div>
 </ng-template>

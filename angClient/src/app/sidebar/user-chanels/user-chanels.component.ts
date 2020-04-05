@@ -19,6 +19,9 @@ export class UserChanelsComponent implements OnInit {
   connectedRooms = [];
   isAddingChannel = false;
   showModal = false;
+  nameOfChannelToRename;
+  idOfChannelToRename;
+  newChannelName: string;
 
   constructor(
     private modalService: BsModalService,
@@ -126,5 +129,17 @@ export class UserChanelsComponent implements OnInit {
 
   onFavChannel(channel, stared) {
     this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: stared}).subscribe();
+  }
+
+  onOpenModalChannelRemaining(template: TemplateRef<any>, channel) {
+    this.modalService.show(template);
+    this.idOfChannelToRename = channel.id;
+  }
+
+  onRenameChannel() {
+    console.log('channel id : ' + this.idOfChannelToRename);
+    console.log('channel naùe : ' + this.newChannelName);
+    this.modalService.hide(1);
+    this._apiService.renameChannel({channelName: this.newChannelName, channelId: this.idOfChannelToRename}).subscribe();
   }
 }
