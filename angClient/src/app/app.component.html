@@ -7,6 +7,7 @@
         (selectionnedChannel)="onChangeChannel($event)"
         (userPseudo)="onChangePseudo($event)"
         (generalDisconnectEvent)="onGeneralDisconnectEvent($event)"
+        [leaveChannelId]="leaveChannelId"
       ></app-sidebar>
     </div>
     <div class="col-lg-10 col-md-8 px-0 overflow-hidden">
@@ -17,6 +18,7 @@
         [selectionnedChannel]="selectionnedChannel"
         [user]="userPseudo"
         (emittedValue)="outputMessageValue($event)"
+        (leaveChannelId)="onLeaveChannel($event)"
       ></app-chat>
     </div>
   </div>

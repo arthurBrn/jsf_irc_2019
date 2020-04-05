@@ -153,5 +153,17 @@ export class ApiService {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
       });
-  }
+    }
+
+    leaveChannel(data) {
+    const body = new HttpParams()
+      .set('channelId', data.channelId)
+      .set('userId', data.userId)
+    return this.httpClient.post(this.baseUrl + 'channels/leave',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
+    }
 }

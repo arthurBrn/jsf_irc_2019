@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, TemplateRef } from '@angular/core';
 import { ApiService } from '../../services/api.service'
 import { ChatService } from '../../services/chat.service'
 import * as $ from 'jquery';
@@ -14,6 +14,7 @@ export class UserChanelsComponent implements OnInit {
   allRooms = [];
   @Output() selectionnedChannel = new EventEmitter<String>();
   @Input() user;
+  @Input() leaveChannelId;
   modalRef: BsModalRef;
   newChanel: string;
   connectedRooms = [];
@@ -50,6 +51,33 @@ export class UserChanelsComponent implements OnInit {
     });
   }
 
+  ngOnChanges(changes: SimpleChange) {
+    for (let propName in changes) {  
+      let change = changes[propName];
+      if (propName == 'leaveChannelId' && change.currentValue !== undefined) {
+          this.connectedRooms = [];
+          this._apiService.getJoinedChannel(localStorage.getItem('login')).subscribe((datas) => {
+            let promise = new Promise((resolve, reject) => {
+              let size = 0;
+              for (let id in datas) {
+                if(datas.hasOwnProperty(id)) size++;
+              }
+            resolve(size);
+            });
+            promise.then((result) => {
+              for (let i = 0; i < result; i++) {
+                this.connectedRooms.push({
+                  'id': datas[i].id,
+                  'name': datas[i].name,
+                  'stared': datas[i].stared
+                });
+              }
+            });
+          });
+        }
+    }
+  }
+
   onChangePseudo(user) {
     this.user.emit(user);
   }
@@ -80,9 +108,7 @@ export class UserChanelsComponent implements OnInit {
 
   searchChannel() {
     this.isAddingChannel = true;
-    console.log(this.user.id);
     this._apiService.getChannels(this.user.id).subscribe((datas) => {
-    console.log(datas);
       let promise = new Promise((resolve, reject) => {
       let size = 0;
       for (let id in datas) {
@@ -126,8 +152,6 @@ export class UserChanelsComponent implements OnInit {
   }
 
   onFavChannel(channel) {
-    console.log('user id : ' + this.user.id);
-    console.log('channel id : ' + channel.id);
     this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: 1}).subscribe();
   }
 }

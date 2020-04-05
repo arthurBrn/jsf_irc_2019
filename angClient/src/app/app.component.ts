@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
   userPseudo;
   isAuth: boolean = false;
   userId: String;
+  leaveChannelId;
   
 
 
@@ -64,6 +65,10 @@ export class AppComponent implements OnInit{
 
   onChangePseudo(userPseudo) {
     this.userPseudo = userPseudo;
+  }
+
+  onLeaveChannel(channel) {
+    this.leaveChannelId = channel;
   }
 
 //   onChange(value) {

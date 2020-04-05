@@ -14,7 +14,8 @@ export class SidebarComponent implements OnInit {
   user;
   @Output() newChannelEventFromSidebarToApp = new EventEmitter();
   @Output() generalDisconnectEvent = new EventEmitter();
-
+  @Input() leaveChannelId;
+  
   constructor() { }
 
   ngOnInit() {

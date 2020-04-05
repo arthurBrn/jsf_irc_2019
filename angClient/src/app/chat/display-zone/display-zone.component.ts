@@ -30,7 +30,7 @@ export class DisplayZoneComponent implements OnInit {
       this._chatService.userLeftRoom()
       .subscribe((data) => {
         let datas = data as any;
-        if(this.channelId == datas.channel && datas.display == true) this.messages.push(data);
+        if(this.channelId == datas.channel) this.messages.push(data);
     });
   }
 

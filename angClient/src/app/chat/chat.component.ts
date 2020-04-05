@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   @Input() function: any;
   @Input() selectionnedChannel;
   @Output() emittedValue = new EventEmitter();
+  @Output() leaveChannelId = new EventEmitter();
   @Input() isAuth;
   @Input() user;
 
@@ -22,5 +23,9 @@ export class ChatComponent implements OnInit {
 
   onSendMessage() {
     this.emittedValue.emit(this.message);
+  }
+
+  onLeaveChannel(channel) {
+    this.leaveChannelId.emit(channel)
   }
 }
