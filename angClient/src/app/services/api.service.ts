@@ -154,4 +154,17 @@ export class ApiService {
           .set('Content-Type', 'application/x-www-form-urlencoded')
       });
   }
+
+  renameChannel(data) {
+    console.log('data from apiservice : ' + data);
+    const body = new HttpParams()
+      .set('name', data.channelName)
+      .set('id', data.channelId)
+    return this.httpClient.post(this.baseUrl + 'channels/rename',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
+  }
 }

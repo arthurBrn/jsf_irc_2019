@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service'
 import { ChatService } from '../../services/chat.service'
 import * as $ from 'jquery';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-user-chanels',
@@ -19,11 +20,15 @@ export class UserChanelsComponent implements OnInit {
   connectedRooms = [];
   isAddingChannel = false;
   showModal = false;
+  nameOfChannelToRename;
+  idOfChannelToRename;
+  newChannelNameInput: string;
 
   constructor(
     private modalService: BsModalService,
     private _apiService: ApiService,
-    private _chatService: ChatService
+    private _chatService: ChatService,
+    private toastrServcie: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -126,5 +131,22 @@ export class UserChanelsComponent implements OnInit {
 
   onFavChannel(channel, stared) {
     this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: stared}).subscribe();
+  }
+
+  onOpenModalChannelRemaining(template: TemplateRef<any>, channel) {
+    this.modalService.show(template);
+    this.idOfChannelToRename = channel.id;
+    this.nameOfChannelToRename = channel.name;
+  }
+
+  onRenameChannel() {
+    if (this.newChannelNameInput.match(/^[a-z" "A-Z0-9_.-]*$/)) {
+      console.log('channel id : ' + this.idOfChannelToRename);
+      console.log('channel naùe : ' + this.newChannelNameInput);
+      this.modalService.hide(1);
+      this._apiService.renameChannel({channelName: this.newChannelNameInput, channelId: this.idOfChannelToRename}).subscribe();
+    } else {
+      this.toastrServcie.warning('Please provide valide channel name with letter, numbers, comma, point or dash');
+    }
   }
 }
