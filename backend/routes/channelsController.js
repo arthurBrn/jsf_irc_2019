@@ -58,4 +58,15 @@ router.post('/rename', (req, res) => {
   });
 });
 
+router.post('/favChannel', (req, res) => {
+  Channels.addFavChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 module.exports = router;

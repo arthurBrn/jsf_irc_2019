@@ -113,5 +113,17 @@ export class ApiService {
     });
   }
 
+  favChannel(data) {
+    const body = new HttpParams()
+      .set('channelId', data.channelId)
+      .set('userId', data.userId)
+      .set('staredValue', data.staredValue)
+    return this.httpClient.post(this.baseUrl + 'channels/favChannel',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
+  }
 
 }

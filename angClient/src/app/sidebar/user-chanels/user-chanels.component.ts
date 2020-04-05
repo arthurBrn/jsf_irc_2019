@@ -48,20 +48,15 @@ export class UserChanelsComponent implements OnInit {
     });
   }
 
-  onChangePseudo(user) {
-    this.user.emit(user);
-  }
-
-  addChannelEvent() {
-    this.renderAddChannelPopUp();
-  }
 
   changeChannel(channel) {
     this.selectionnedChannel.emit(channel);
   }
 
-  onFavChannel() {
-
+  onFavChannel(channel) {
+    console.log('user id : ' + this.user.id);
+    console.log('channel id : ' + channel.id);
+    this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: 1}).subscribe();
   }
 
   renderAddChannelPopUp() {
