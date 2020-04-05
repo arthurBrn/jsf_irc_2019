@@ -1,6 +1,6 @@
-<div *ngIf="!isAddingChannel overflow-auto"  >
+<div *ngIf="!isAddingChannel overflow-auto">
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 text-muted text-left mb-3 font-weight-bold">
-        <span style="width: 100%; color:white;">
+        <span style="width: 100%; color:white;" id="staredDiv">
             Stared
         </span>
         <hr>
@@ -23,7 +23,6 @@
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted text-left mb-3 font-weight-bold">
             <span style="width: 100%; color:white;">
               Channels
-              <!-- <a href="#" (click)="addChannelEvent()"> -->
               <a href="#" (click)="searchChannel()">
               <i class="fa fa-plus-circle" style="float:right; color:white;"></i>
               </a>
@@ -56,17 +55,26 @@
     </h6>
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 text-muted text-left mb-3 font-weight-bold">
         <span style="width: 100%; color:white;">
-          List of public channels
+          List of all channels
         </span>
       <hr>
-  </h6>
+    </h6>
+    <ul class="nav flex-column" style="width:100%;">
+        <div *ngFor="let room of allRooms" >
+            <li class="nav-item" style="width:100%;" value="{{room}}">
+            <a class="nav-link text-light" style="text-decoration: none;" (click)="joinChannel(room)">
+                # {{ room.name }}
+            </a>
+            <a>
+                <i class="fa fa-plus-circle" style="float:right; color:white; position:relative; bottom:25px; right:15px;" (click)="joinChannel(room)"></i>
+            </a>
+            </li>
+        </div>
+    </ul>
 </div>
 
-
-
-
-<ng-template #templateRef >
-    <div class="modal-content">
+<ng-template #templateRef>
+    <div class="modal-content" [hidden]="!showModal">
       <div class="modal-header text-center">
         <h5 class="modal-title">New channel</h5>
       </div>

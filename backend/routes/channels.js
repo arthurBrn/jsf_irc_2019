@@ -1,8 +1,8 @@
 var db = require('../database/db')
 
 var Channels = {
-  getChannels: (callback) => { 
-    return db.query('SELECT * from channels', callback);
+  getChannels: (userId, callback) => { 
+    return db.query('SELECT * from channels c where id not in (select channelId FROM joinedChannel jc where userId = ?)', [userId], callback);
   },
   insertChannel: (channel, callback) => {
     return db.query('insert into channels (name) values ( ? )', [channel.name], callback);
@@ -18,6 +18,12 @@ var Channels = {
   },
   addFavChannel: (datas, callback) => {
     return db.query('UPDATE joinedChannel SET stared = ? WHERE channelId = ? AND userId = ?', [datas.channelId, datas.userId, datas.staredValue], callback);
+  },
+  getName: (channelId, callback) => {
+    return db.query('SELECT * from channels where id = ?', [channelId] , callback);
+  },
+  countUsers: (channelId, callback) => {
+    return db.query('select count(distinct userId) as nb from joinedChannel jc where channelId = ?', [channelId] , callback);
   }
 }
 

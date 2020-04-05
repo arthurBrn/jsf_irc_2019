@@ -11,13 +11,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 })
 export class UserChanelsComponent implements OnInit {
 
-  rooms = [];
+  allRooms = [];
   @Output() selectionnedChannel = new EventEmitter<String>();
   @Input() user;
   modalRef: BsModalRef;
   newChanel: string;
   connectedRooms = [];
   isAddingChannel = false;
+  showModal = false;
 
   constructor(
     private modalService: BsModalService,
@@ -36,10 +37,11 @@ export class UserChanelsComponent implements OnInit {
       });
       promise.then((size) => {
         for (let i = 0; i < size; i++) {
+         this._chatService.joinRoom({ 'pseudo': this.user.pseudo, 'room': datas[i].id, 'display': false});
           this.connectedRooms.push({
             'id': datas[i].id,
             'name': datas[i].name,
-           'stared': datas[i].stared
+            'stared': datas[i].stared
           });
         }
       }).catch((err) => {
@@ -48,36 +50,84 @@ export class UserChanelsComponent implements OnInit {
     });
   }
 
+  onChangePseudo(user) {
+    this.user.emit(user);
+  }
 
   changeChannel(channel) {
-    this.selectionnedChannel.emit(channel);
+    this.selectionnedChannel.emit(channel.id);
+  }
+  
+  openModal(template: TemplateRef<any>) {
+    this.showModal = true;
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onAddChanel() {
+    if (this.newChanel) {
+      this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
+        let datas = data as any;
+        this.joinNewChannel(datas.insertId, this.newChanel).then(() => {
+          this.isAddingChannel = false;
+          this.showModal = false;
+          $('.modal-backdrop').remove();
+          this.newChanel = '';
+        });
+      });
+    }
+    
+  }
+
+  searchChannel() {
+    this.isAddingChannel = true;
+    console.log(this.user.id);
+    this._apiService.getChannels(this.user.id).subscribe((datas) => {
+    console.log(datas);
+      let promise = new Promise((resolve, reject) => {
+      let size = 0;
+      for (let id in datas) {
+        if(datas.hasOwnProperty(id)) size++;
+      }
+      resolve(size);
+      });
+      promise.then((size) => {
+        for (let i = 0; i < size; i++) {
+          this.allRooms.push({
+            'id': datas[i].id,
+            'name': datas[i].name,
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+  }
+
+  joinChannel(room) {
+    this.joinNewChannel(room.id, room.name).then(() => {
+        this.isAddingChannel = false;
+    });
+  }
+
+  joinNewChannel = (channelId, channelName) => {
+    return new Promise((resolve, reject) => {
+      const message = {
+        'content': 'has joined the room',
+        'channelId': channelId,
+        'userId': this.user.id,
+        'pseudo': this.user.pseudo,
+        'date': new Date().toISOString()
+      }
+      this._apiService.sendMessage(message).subscribe();
+      this.connectedRooms.push({ 'id': channelId, 'name': channelName, 'stared': 0 });
+      this._chatService.joinRoom({ 'pseudo': this.user.pseudo, 'room': channelId, 'display': true });
+      this._apiService.addJoinedChannel({ 'userId': this.user.id, 'channelId': channelId, 'stared': 0 }).subscribe((datas) => resolve());
+    });
   }
 
   onFavChannel(channel) {
     console.log('user id : ' + this.user.id);
     console.log('channel id : ' + channel.id);
     this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: 1}).subscribe();
-  }
-
-  renderAddChannelPopUp() {
-    //this._apiService.insertChannel({'name': 'Millionaire', 'stared': '0'}).subscribe();
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
-
-  onAddChanel() {
-    this._apiService.insertChannel({ name: this.newChanel }).subscribe((data) => {
-      let datas = data as any;
-      this._chatService.joinRoom(this.user.pseudo, datas.insertId);
-      this._apiService.addJoinedChannel({ 'userId': this.user.id, 'channelId': datas.insertId, 'stared': 0 }).subscribe();
-      this.connectedRooms.push({ 'id': datas.insertId, 'name': this.newChanel, 'stared': 0 });
-    });
-    this.isAddingChannel = false;
-  }
-
-  searchChannel() {
-    this.isAddingChannel = true;
   }
 }

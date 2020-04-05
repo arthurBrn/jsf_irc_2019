@@ -36,7 +36,6 @@ export class InputMsgComponent implements OnInit {
             'pseudo': this.user.pseudo,
             'date': new Date().toISOString()
           }
-          console.log('message' + message);
           this._apiService.sendMessage(message).subscribe();
           this.messageContent = '';
         }

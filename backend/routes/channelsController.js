@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 var Channels = require('./channels');
 
-router.get('/', (req, res) => {
-  Channels.getChannels((err, rows) => {
+router.post('/notJoined', (req, res) => {
+  Channels.getChannels(req.body.userId, (err, rows) => {
     if (err) {
       res.status(400).json(err);
     } else {
@@ -49,6 +49,28 @@ router.post('/getJoined', (req, res) => {
 
 router.post('/rename', (req, res) => {
   Channels.renameChannel(req.body, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+router.post('/name', (req, res) => {
+  Channels.getName(req.body.channelId, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+router.post('/countUsers', (req, res) => {
+  Channels.countUsers(req.body.channelId, (err, rows) => {
     if (err) {
       console.log(err);
       res.status(400).json(err);

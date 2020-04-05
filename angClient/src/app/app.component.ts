@@ -13,10 +13,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AppComponent implements OnInit{
 
-  selectionnedChannel: string;
+  selectionnedChannel;
   userPseudo;
   isAuth: boolean = false;
   userId: String;
+  
+
+
+
+
+
   @ViewChild("messageInput") messageInput: ElementRef;
   joinState = true;
   pseudo: String;
@@ -31,7 +37,7 @@ export class AppComponent implements OnInit{
   roomForm: FormGroup;
   oldName: String;
   newName: String;
-  usernm = this.user;
+  usernm;
 
   constructor(
     private _chatService: ChatService,
@@ -58,23 +64,10 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    // localStorage.setItem('login', '2');
-    // localStorage.removeItem('login');
-    this._apiService.getChannels().subscribe((data) => {
-      if (localStorage.getItem('login')) {
-        this.userId = localStorage.getItem('login');
-        console.log(this.userId);
+    if (localStorage.getItem('login')) {
         this.isAuth = true;
-      }
-      let parsedDatas = data as any;
-      for (const line of parsedDatas) {
-        this.rooms.push(line);
-      }
-      this.roomForm = this.fb.group({
-        roomControl: [this.rooms[0]]
-      });
-      this.selectedRoom = parsedDatas[0].name;
-    });
+    }
+    
   }
 
   onChangeChannel(selectionnedChannel) {
@@ -112,7 +105,7 @@ export class AppComponent implements OnInit{
           'date': new Date().toISOString()
         }).subscribe();
         this.is_connected = true;
-        this._chatService.joinRoom(this.user, this.selectedRoom);
+        // this._chatService.joinRoom(this.user, this.selectedRoom);
         this.messageInput.nativeElement.focus()
       } else {
         this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');

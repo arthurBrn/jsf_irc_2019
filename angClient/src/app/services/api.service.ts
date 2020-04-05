@@ -63,8 +63,15 @@ export class ApiService {
       });
   }
 
-  getChannels() {
-    return this.httpClient.get(this.baseUrl + 'channels');
+  getChannels(userId) {
+    const body = new HttpParams()
+        .set('userId', userId)
+    return this.httpClient.post(this.baseUrl + 'channels/notJoined',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
   }
 
   insertChannel(datas) {
@@ -113,6 +120,28 @@ export class ApiService {
     });
   }
 
+  getChannelName(channelId) {
+    const body = new HttpParams()
+        .set('channelId', channelId)
+    return this.httpClient.post(this.baseUrl + 'channels/name',
+    body.toString(),
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
+  countUsers(channelId) {
+    const body = new HttpParams()
+        .set('channelId', channelId)
+    return this.httpClient.post(this.baseUrl + 'channels/countUsers',
+    body.toString(),
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
+  }
+
   favChannel(data) {
     const body = new HttpParams()
       .set('channelId', data.channelId)
@@ -125,5 +154,4 @@ export class ApiService {
           .set('Content-Type', 'application/x-www-form-urlencoded')
       });
   }
-
 }
