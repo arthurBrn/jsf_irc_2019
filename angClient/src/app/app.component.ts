@@ -16,7 +16,6 @@ export class AppComponent implements OnInit{
   isAuth: boolean = false;
   userId: String;
   leaveChannelId;
-  
 
 
 
@@ -56,7 +55,7 @@ export class AppComponent implements OnInit{
     if (localStorage.getItem('login')) {
         this.isAuth = true;
     }
-    
+
   }
 
   onChangeChannel(selectionnedChannel) {
