@@ -46,11 +46,8 @@ Création d'un server IRC en NodeJs, ExpressJS avec un client angular
 ![MCD](doc/MCD_V1.png)
 
 ### Front end
-
-
-### Back end
-> Création d'api
->
+> #### Arboresence
+![arboresence](doc/component_arborescence.png)
 
 
 ### Installation
