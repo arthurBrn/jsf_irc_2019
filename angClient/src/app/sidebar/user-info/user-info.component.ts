@@ -98,6 +98,7 @@ export class UserInfoComponent implements OnInit {
         };
         this._apiService.sendMessage(persistDatas).subscribe((data) => console.log(data));
       }
+      this.userPseudo.emit(this.newPseudo);
     } else {
       this.toastrService.warning('Please provide valide user name with letter, numbers, comma, point or dash');
     }
