@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit} from '@angular/core';
+// import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter, TemplateRef} from '@angular/core';
 import { ChatService } from './services/chat.service';
 import { ApiService } from './services/api.service';
 
@@ -16,10 +17,37 @@ export class AppComponent implements OnInit{
   userId: String;
   leaveChannelId;
 
+
+
+
+
+
+//   @ViewChild("messageInput") messageInput: ElementRef;
+//   joinState = true;
+//   pseudo: String;
+//   user: String;
+//   message: String;
+//   messages: Array<{user: String, message: String}> = [];
+//   is_connected: boolean = false;
+//   is_renaming: boolean = false;
+//   rooms = [];
+//   connected_rooms = [];
+//   selectedRoom: String;
+//   roomForm: FormGroup;
+//   oldName: String;
+//   newName: String;
+//   usernm;
+
   constructor(
     private _chatService: ChatService,
     private _apiService: ApiService,
     ) {
+    // this._chatService.userLeftRoom()
+    //   .subscribe((data) => {
+    //     if (data.user) {
+    //       this.messages.push(data);
+    //     }
+    //   });
     // this._chatService.userRenamed()
     //   .subscribe((data) => this.messages.push(data));
   }
@@ -155,10 +183,9 @@ export class AppComponent implements OnInit{
   }
 
   onRegisterEvent(event) {
-    console.log('REGISTER EVENT : ' + event);
     this.userId = event;
     localStorage.setItem('login', event);
-    this.isAuth =true;
+    this.isAuth = true;
   }
 
   onGeneralDisconnectEvent(event) {

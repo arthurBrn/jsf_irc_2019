@@ -31,7 +31,14 @@ export class DisplayZoneComponent implements OnInit {
       .subscribe((data) => {
         let datas = data as any;
         if(this.channelId == datas.channel) this.messages.push(data);
-    });
+      });
+      this._chatService.userRenamed()
+      .subscribe((data) => {
+        let datas = data as any;
+        if(this.channelId == datas.channel) this.messages.push(data);
+      });
+          // this._chatService.userRenamed()
+    //   .subscribe((data) => this.messages.push(data));
   }
 
   ngOnInit() {

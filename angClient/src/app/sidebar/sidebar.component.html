@@ -5,12 +5,15 @@
       [channel]="channelId"
       (userPseudo)="onChangePseudo($event)"
       (userDisconnect)="onDisconnectEvent($event)"
+      [connectedRooms]="connectedRooms"
+      [idUser]="userId"
     >
     </app-user-info>
     <app-user-chanels
       [user]="user"
       [leaveChannelId]="leaveChannelId"
       (selectionnedChannel)="onChangeChannel($event)"
+      (outputConnectedRoomsEvent)="recoverConnectedRooms($event)"
       >
     </app-user-chanels>
   </div>

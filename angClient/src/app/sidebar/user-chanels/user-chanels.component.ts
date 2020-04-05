@@ -14,6 +14,7 @@ export class UserChanelsComponent implements OnInit {
 
   allRooms = [];
   @Output() selectionnedChannel = new EventEmitter<String>();
+  @Output() outputConnectedRoomsEvent = new EventEmitter();
   @Input() user;
   @Input() leaveChannelId;
   modalRef: BsModalRef;
@@ -50,6 +51,7 @@ export class UserChanelsComponent implements OnInit {
             'stared': datas[i].stared
           });
         }
+        this.outputConnectedRoomsEvent.emit(this.connectedRooms);
       }).catch((err) => {
         console.log(err);
       });
@@ -57,7 +59,7 @@ export class UserChanelsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChange) {
-    for (let propName in changes) {  
+    for (let propName in changes) {
       let change = changes[propName];
       if (propName == 'leaveChannelId' && change.currentValue !== undefined) {
           this.refreshChannelList();

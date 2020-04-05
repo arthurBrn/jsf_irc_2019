@@ -9,6 +9,7 @@ export class SidebarComponent implements OnInit {
 
   @Input() chanels;
   @Input() pseudo;
+  @Input() userId;
   @Output() selectionnedChannel = new EventEmitter<String>();
   channelId;
   @Output() userPseudo = new EventEmitter();
@@ -16,7 +17,8 @@ export class SidebarComponent implements OnInit {
   @Output() newChannelEventFromSidebarToApp = new EventEmitter();
   @Output() generalDisconnectEvent = new EventEmitter();
   @Input() leaveChannelId;
-  
+  connectedRooms = [];
+
   constructor() { }
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class SidebarComponent implements OnInit {
     if (event === true) {
       this.generalDisconnectEvent.emit(true);
     }
+  }
+
+  recoverConnectedRooms(event) {
+    this.connectedRooms = event;
   }
 
 }
