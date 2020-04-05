@@ -64,3 +64,11 @@ $ ./script_fronts/launch_server.sh
 $ node backend/app.js
 ```
 > Now you can go to 127.0.0.1:4200
+
+### Stop the application
+```sh
+$ cd backend
+$ npm stop
+$ cd ../
+$ ./script_front/stop_server.sh
+```
