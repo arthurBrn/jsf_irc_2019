@@ -158,8 +158,8 @@ export class ApiService {
   renameChannel(data) {
     console.log('data from apiservice : ' + data);
     const body = new HttpParams()
-      .set('channelName', data.channelName)
-      .set('channelId', data.channelId)
+      .set('name', data.channelName)
+      .set('id', data.channelId)
     return this.httpClient.post(this.baseUrl + 'channels/rename',
       body.toString(),
       {

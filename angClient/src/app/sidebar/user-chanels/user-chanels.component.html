@@ -103,8 +103,8 @@
       <h5 class="modal-title">New channel name</h5>
     </div>
     <div class="modal-body">
-      <input type="text" id="newChanelName" class="form-control" placeholder="Chanel name..."
-             [(ngModel)]="newChannelName" (keydown.enter)="onRenameChannel()" />
+      <input type="text" id="newChanelName" class="form-control"
+             [(ngModel)]="newChannelNameInput" (keydown.enter)="onRenameChannel()" />
     </div>
     <div class="modal-footer">
       <button class="btn btn-elegant btn-block p-btn-rounded" (click)="onRenameChannel()">

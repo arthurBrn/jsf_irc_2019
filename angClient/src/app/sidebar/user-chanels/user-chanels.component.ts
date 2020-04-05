@@ -22,7 +22,7 @@ export class UserChanelsComponent implements OnInit {
   showModal = false;
   nameOfChannelToRename;
   idOfChannelToRename;
-  newChannelName: string;
+  newChannelNameInput: string;
 
   constructor(
     private modalService: BsModalService,
@@ -136,14 +136,15 @@ export class UserChanelsComponent implements OnInit {
   onOpenModalChannelRemaining(template: TemplateRef<any>, channel) {
     this.modalService.show(template);
     this.idOfChannelToRename = channel.id;
+    this.nameOfChannelToRename = channel.name;
   }
 
   onRenameChannel() {
-    if (this.newChannelName.match(/^[a-z" "A-Z0-9_.-]*$/)) {
+    if (this.newChannelNameInput.match(/^[a-z" "A-Z0-9_.-]*$/)) {
       console.log('channel id : ' + this.idOfChannelToRename);
-      console.log('channel naùe : ' + this.newChannelName);
+      console.log('channel naùe : ' + this.newChannelNameInput);
       this.modalService.hide(1);
-      this._apiService.renameChannel({channelName: this.newChannelName, channelId: this.idOfChannelToRename}).subscribe();
+      this._apiService.renameChannel({channelName: this.newChannelNameInput, channelId: this.idOfChannelToRename}).subscribe();
     } else {
       this.toastrServcie.warning('Please provide valide channel name with letter, numbers, comma, point or dash');
     }
