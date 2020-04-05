@@ -4,6 +4,7 @@
       <app-sidebar
         [chanels]="rooms"
         [pseudo]="usernm"
+        [userId]="userId"
         (selectionnedChannel)="onChangeChannel($event)"
         (userPseudo)="onChangePseudo($event)"
         (generalDisconnectEvent)="onGeneralDisconnectEvent($event)"

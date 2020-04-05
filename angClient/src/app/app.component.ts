@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   isAuth: boolean = false;
   userId: String;
   leaveChannelId;
-  
+
 
 
 
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit{
     if (localStorage.getItem('login')) {
         this.isAuth = true;
     }
-    
+
   }
 
   onChangeChannel(selectionnedChannel) {
@@ -183,10 +183,9 @@ export class AppComponent implements OnInit{
   }
 
   onRegisterEvent(event) {
-    console.log('REGISTER EVENT : ' + event);
     this.userId = event;
     localStorage.setItem('login', event);
-    this.isAuth =true;
+    this.isAuth = true;
   }
 
   onGeneralDisconnectEvent(event) {
