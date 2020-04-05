@@ -2,6 +2,7 @@
   <div class="sidebar-sticky">
     <app-user-info
       [usr]="pseudo"
+      [channel]="channelId"
       (userPseudo)="onChangePseudo($event)"
       (userDisconnect)="onDisconnectEvent($event)"
     >

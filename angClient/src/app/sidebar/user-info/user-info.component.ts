@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import { ApiService } from '../../services/api.service'
 
 @Component({
@@ -9,8 +9,10 @@ import { ApiService } from '../../services/api.service'
 export class UserInfoComponent implements OnInit {
 
   @Input() usr;
+  @Input() channel;
   @Output() userPseudo = new EventEmitter();
   @Output() userDisconnect = new EventEmitter();
+  channelId;
 
   constructor(private _apiService: ApiService) { }
 
@@ -19,6 +21,16 @@ export class UserInfoComponent implements OnInit {
       this.usr = data[0].first_name;
       this.userPseudo.emit({'id': localStorage.getItem('login'), 'pseudo': data[0].first_name });
     });
+  }
+
+  ngOnChanges(changes: SimpleChange) {
+      
+      for (let propName in changes) {  
+        let change = changes[propName];
+        if (propName == 'channel' && change.currentValue !== undefined) {
+          this.channelId = change.currentValue;
+        }
+      }
   }
 
   changeUserInfo() {
