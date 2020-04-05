@@ -152,8 +152,6 @@ export class AppComponent implements OnInit{
 //   rename() {
 //     if (this.user) {
 //       if (this.user.match(/^[a-z" "A-Z0-9_.-]*$/)) {
-//         this.is_renaming = false;
-//         this.is_connected = true;
 //         const datas = {
 //           oldName: this.oldName,
 //           newName: this.user,

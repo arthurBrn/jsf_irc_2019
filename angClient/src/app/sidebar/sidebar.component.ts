@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
   @Input() chanels;
   @Input() pseudo;
   @Output() selectionnedChannel = new EventEmitter<String>();
+  channelId;
   @Output() userPseudo = new EventEmitter();
   user;
   @Output() newChannelEventFromSidebarToApp = new EventEmitter();
@@ -22,6 +23,7 @@ export class SidebarComponent implements OnInit {
   }
 
   onChangeChannel(channel) {
+    this.channelId = channel;
     this.selectionnedChannel.emit(channel);
   }
 
