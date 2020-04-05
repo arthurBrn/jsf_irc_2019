@@ -13,10 +13,10 @@
                 {{ cha.name }}
                 </a>
                 <a (click)="onFavChannel(cha, 0)">
-                <i class="fas fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
+                <i class="fas fa-heart p-icon-fav"></i>
                 </a>
-              <a href="#" (click)="onOpenModalChannelRemaining(renameChannelRef, cha)">
-                <i class="fas fa-pen" style="float:right; color:white; position:relative; bottom:25px; right:25px;"></i>
+              <a href="#" (click)="onOpenModalChannelRemaining(renameChannelModal, cha)">
+                <i class="fas fa-pen p-icon-modify-channel-name"></i>
               </a>
             </li>
             </div>
@@ -27,7 +27,7 @@
             <span style="width: 100%; color:white;">
               Channels
               <a href="#" (click)="searchChannel()">
-              <i class="fa fa-plus-circle" style="float:right; color:white;"></i>
+                <i class="fa fa-plus-circle" style="float:right; color:white;"></i>
               </a>
             </span>
           </h6>
@@ -39,10 +39,10 @@
                 # {{ cha.name }}
             </a>
             <a  (click)="onFavChannel(cha, 1)">
-                <i class="far fa-heart" style="float:right; color:white; position:relative; bottom:25px; right:15px;"></i>
+                <i class="far fa-heart p-icon-fav" ></i>
             </a>
-              <a href="#" (click)="onOpenModalChannelRemaining(renameChannelRef, cha)">
-                <i class="fas fa-pen" style="float:right; color:white; position:relative; bottom:25px; right:25px;"></i>
+              <a href="#" (click)="onOpenModalChannelRemaining(renameChannelModal, cha)">
+                <i class="fas fa-pen p-icon-modify-channel-name"></i>
               </a>
             </li>
             </div>
@@ -54,7 +54,7 @@
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted text-left mb-3 font-weight-bold">
         <span style="width: 100%; color:white;">
           Create a channel
-          <a href="#" (click)="openModal(templateRef)">
+          <a href="#" (click)="openModal(addChannelModal)">
           <i class="fa fa-plus-circle" style="float:right; color:white;"></i>
           </a>
         </span>
@@ -79,7 +79,7 @@
     </ul>
 </div>
 
-<ng-template #templateRef>
+<ng-template #addChannelModal>
     <div class="modal-content" [hidden]="!showModal">
       <div class="modal-header text-center">
         <h5 class="modal-title">New channel</h5>
@@ -89,7 +89,7 @@
                [(ngModel)]="newChanel" (keydown.enter)="onAddChanel()" />
       </div>
       <div class="modal-footer">
-        <button class="btn btn-elegant" (click)="onAddChanel()">
+        <button class="btn btn-elegant btn-block p-btn-rounded" (click)="onAddChanel()">
           Validate
         </button>
       </div>
@@ -97,7 +97,7 @@
 </ng-template>
 
 
-<ng-template #renameChannelRef>
+<ng-template #renameChannelModal>
   <div class="modal-content">
     <div class="modal-header text-center">
       <h5 class="modal-title">New channel name</h5>
@@ -107,7 +107,7 @@
              [(ngModel)]="newChannelName" (keydown.enter)="onRenameChannel()" />
     </div>
     <div class="modal-footer">
-      <button class="btn btn-elegant" (click)="onRenameChannel()">
+      <button class="btn btn-elegant btn-block p-btn-rounded" (click)="onRenameChannel()">
         Validate
       </button>
     </div>

@@ -1,3 +1,24 @@
 #modal {
     background-color: rgba(0,0,0,.0001) !important;
 }
+
+.p-btn-rounded {
+  border-radius:12px;
+}
+
+
+.p-icon-fav {
+  float:right;
+  color:white;
+  position:relative;
+  bottom:25px;
+  right:15px;
+}
+
+.p-icon-modify-channel-name {
+  float:right;
+  color:white;
+  position:relative;
+  bottom:25px;
+  right:25px;
+}
