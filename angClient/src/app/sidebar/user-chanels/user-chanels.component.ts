@@ -60,25 +60,7 @@ export class UserChanelsComponent implements OnInit {
     for (let propName in changes) {  
       let change = changes[propName];
       if (propName == 'leaveChannelId' && change.currentValue !== undefined) {
-          this.connectedRooms = [];
-          this._apiService.getJoinedChannel(localStorage.getItem('login')).subscribe((datas) => {
-            let promise = new Promise((resolve, reject) => {
-              let size = 0;
-              for (let id in datas) {
-                if(datas.hasOwnProperty(id)) size++;
-              }
-            resolve(size);
-            });
-            promise.then((result) => {
-              for (let i = 0; i < result; i++) {
-                this.connectedRooms.push({
-                  'id': datas[i].id,
-                  'name': datas[i].name,
-                  'stared': datas[i].stared
-                });
-              }
-            });
-          });
+          this.refreshChannelList();
         }
     }
   }
@@ -157,6 +139,7 @@ export class UserChanelsComponent implements OnInit {
 
   onFavChannel(channel, stared) {
     this._apiService.favChannel({channelId: channel.id, userId: this.user.id, staredValue: stared}).subscribe();
+    this.refreshChannelList();
   }
 
   onOpenModalChannelRemaining(template: TemplateRef<any>, channel) {
@@ -174,5 +157,28 @@ export class UserChanelsComponent implements OnInit {
     } else {
       this.toastrServcie.warning('Please provide valide channel name with letter, numbers, comma, point or dash');
     }
+    this.refreshChannelList();
+  }
+
+  refreshChannelList() {
+    this.connectedRooms = [];
+    this._apiService.getJoinedChannel(localStorage.getItem('login')).subscribe((datas) => {
+      let promise = new Promise((resolve, reject) => {
+      let size = 0;
+      for (let id in datas) {
+        if(datas.hasOwnProperty(id)) size++;
+      }
+      resolve(size);
+      });
+      promise.then((result) => {
+        for (let i = 0; i < result; i++) {
+          this.connectedRooms.push({
+            'id': datas[i].id,
+            'name': datas[i].name,
+            'stared': datas[i].stared
+          });
+        }
+      });
+    });
   }
 }
